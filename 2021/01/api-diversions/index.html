@@ -1,0 +1,1126 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "API Diversions",
+        "headline" : "API Diversions",
+        "description" : "Experimenting with a new API via Cloudflare workers.",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2021",
+        "datePublished": "2021-01-13",
+        "dateModified" : "2021-01-13",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2021\/01\/api-diversions\/",
+        "wordCount" : "1054",
+        "keywords" : [ "text-to-speech","Blog" ]
+    }
+    </script>
+        
+            
+                <title>API Diversions</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="Experimenting with a new API via Cloudflare workers.">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="API Diversions">
+  <meta name="twitter:description" content="Experimenting with a new API via Cloudflare workers.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="API Diversions">
+  <meta property="og:description" content="Experimenting with a new API via Cloudflare workers.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-01-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-01-13T00:00:00+00:00">
+    <meta property="article:tag" content="Text-to-Speech">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/21-tts-1.png">
+        
+
+        
+  <meta itemprop="name" content="API Diversions">
+  <meta itemprop="description" content="Experimenting with a new API via Cloudflare workers.">
+  <meta itemprop="datePublished" content="2021-01-13T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-01-13T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1054">
+  <meta itemprop="keywords" content="Text-to-Speech">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h1>
+            
+        
+        
+            <p>Experimenting with a new API via Cloudflare workers.</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2021-01-13'>
+            January 13, 2021</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>5 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>Recently reinvigorated with my new <a href="https://ja.mesmontgomery.co.uk/2020/12/new-ui-for-my-text-to-speech-player/">UI work</a>, I set myself to task with simplifying the front end player code. No matter how I looked at it, I&rsquo;d needed to rewrite the back end API to support a front end rewrite. But what if I didn&rsquo;t precisely need to do that? Enter stage left, Cloudflare Workers.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/01/cfw-proxy-1.png'
+                            alt="Comparison of beta with the worker as proxy and handling query translation.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>Below I explain how I arrived at this. If you would like to view the Worker code, you can do so <a href="https://github.com/gh-jamesmontgomery/cloudflare-workers/blob/main/api-proxy/tts-api-translate.js">here</a>. If you would like to view the sites (and compare), you may do so here:</p>
+<ul>
+<li>Beta: <a href="https://tts-ja.mesmontgomery.co.uk/beta">https://tts-ja.mesmontgomery.co.uk/beta</a></li>
+<li>Live: <a href="https://tts-ja.mesmontgomery.co.uk">https://tts-ja.mesmontgomery.co.uk</a></li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<p>The front end code treats each audio source discretely. In truth, the front end code to support each differs only by the URL called. The URL difference&rsquo;s significance lies in its relationship with the code providing the API.</p>
+<ul>
+<li>&lsquo;/v1/a-rs&rsquo; for Ron Swanson audio.</li>
+<li>&lsquo;/v1/a-sv443&rsquo; for sv443&rsquo;s JokeAPI audio.</li>
+<li>&lsquo;/v1/a-ich&rsquo; foricanhazdadjoke.com&rsquo;s audio.</li>
+<li>&lsquo;/v1/a-qg&rsquo; for Quote Garden&rsquo;s audio.</li>
+</ul>
+<p>Each of the above supports a single query string parameter of &rsquo;entryid&rsquo;, the SHA265 hash of an entry in the DB.</p>
+<ul>
+<li>&lsquo;/v1/random&rsquo; which returns IDs used with the above routes via the query string parameter.</li>
+</ul>
+<p>Each of the above also has a discrete Lambda function. I felt that I could consolidate each to a single URL, allowed the front end to simplify. I want to try this before addressing any back end changes.</p>
+<h2 id="introducing-cloudflare-workers">Introducing Cloudflare Workers</h2>
+<p><a href="https://workers.cloudflare.com/">Cloudflare workers</a> are a serverless technology which allows you to run code to process proxied requests. Cloudflare describes this in much more detail <a href="https://developers.cloudflare.com/workers/learning/how-workers-works">here</a>, and they provide lots of <a href="https://developers.cloudflare.com/workers/examples">examples</a>.</p>
+<p>Cloudflare documents Workers suited to the job of API middleware. I endeavoured to create a Worker that translated calls from my proposed API into the existing.</p>
+<p>Cloudflare offers a free tier which more than suits my needs for this. It is available at the time of writing to any Cloudflare plan <a href="https://developers.cloudflare.com/workers/platform/pricing">subject to some limits</a>.</p>
+<h2 id="using-cloudflare-workers-to-mock-up-the-proposed-api">Using Cloudflare Workers to mock up the proposed API</h2>
+<p>I considered consolidating the API to the following:</p>
+<ul>
+<li>&lsquo;/v1/random&rsquo;</li>
+<li>&lsquo;/v1/random?contentCode=XY&amp;entryid=ABC&rsquo;</li>
+</ul>
+<p>The proposed API exchanges the content specific API routes for the &lsquo;contentCode&rsquo; query string parameter.</p>
+<p>For example, a call to <code>/v1/random?contentCode=RS&amp;entryid=ABC</code> for Ron Swanson audio would in effect generate a call to <code>/v1/a-rs?entryid=ABC</code>.</p>
+<p>If successful, I could write an updated front end and evaluate the new API structure.</p>
+<h2 id="of-cors-there-would-be-challenges">Of CORS, there would be challenges</h2>
+<p>One of the AWS API gateway benefits is the <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html">built-in support</a> for Cross-Origin Resource Sharing (CORS).</p>
+<p>In a parallel deployment, such as I had chosen,  putting API middleware would surface issues for the client using the alternative FQDN.</p>
+<p>I chose to solve it within the Cloudflare worker itself. Based on the requested hostname, the worker would return an appropriate value for &lsquo;access-control-allow-origin&rsquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">//Access control constants
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">thisDefaultAllowedOrigin</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://jamestest.org:1234&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">allowedOrigins</span> <span style="color:#f92672">=</span> {  <span style="color:#e6db74">&#34;tts-cfw-test.mesmontgomery.co.uk&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;http://jamestest.org:5500&#34;</span>,<span style="color:#e6db74">&#34;tts-cfw.mesmontgomery.co.uk&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;https://tts-ja.mesmontgomery.co.uk&#34;</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//within the handleRequest function...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//set the allowed origin based on requested hostname
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">hostname</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">allowedOrigins</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">thisAllowedOrigin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">allowedOrigins</span>[<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">hostname</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="protecting-your-origin-with-in-line-validation">Protecting your origin with in-line validation</h2>
+<p>It is a common concern that your application API is effectively bare to the internet.</p>
+<p>Of course, you can implement all the validation you wish within your client code, but what if requests are sent directly to your API? Inevitably request verification takes place at your origin too, to be safe.</p>
+<p>The challenge with request validation at your origin is that it consumes resources.</p>
+<p>The position of Cloudflare Workers allows them to perform some request hygiene. It doesn&rsquo;t release you from API request validation, but it does pre-filter it.</p>
+<p>In my case, I configured my worker to validate the format of <code>entryid</code>.</p>
+<p>We can test for a valid <code>entryid</code> value by evaluating with regex. The expected value, SHA256 represented in hexadecimal, is exactly 64 characters in length. Each character must be one of a-f/A-F,0-9. We can test with the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isSHA256</span>(<span style="color:#a6e22e">h</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">re</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RegExp(<span style="color:#e6db74">&#39;[0-9A-Fa-f]{64}&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">re</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">h</span>))
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">//end of isSha256
+</span></span></span></code></pre></div><p>Furthermore, the Cloudflare Worker will drop any original request elements irrelevant to my API from the onward request. In summary, it will process requests with the following parameters:</p>
+<ul>
+<li>contentCode</li>
+<li>entryID</li>
+</ul>
+<p>The <code>contentCode</code> parameter must be within an expected set of values. At the same time, <code>entryID</code> must be the SHA256 format described above.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/01/cfw-proxy-2.png'
+                            alt="Logic within the worker rejects requests that do not pass expected tests.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h2 id="improved-caching-control">Improved caching control</h2>
+<p>My caching strategy to-date was to use Cloudflare page rules. They achieved the primary goal of absorbing valid repeat requests, serving these from the cache.</p>
+<p>However, they did not offer any protection against randomly generated query strings. In this case, Cloudflare would see these as a cache miss and request content from my origin.</p>
+<p>I use the Cloudflare worker to cache on the normalised URL, rather than the initially requested address. Padded URLs will map to <code>contentCode</code> and <code>entryID</code> caches entries only. For example:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Requested URL</th>
+          <th>Fetched URL</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>https://cfw-fqdn/?contentCode=ICH&amp;entryID=SHA256value</td>
+          <td>https://backend-fqdn/?contentCode=ICH&amp;entryID=SHA256value</td>
+      </tr>
+      <tr>
+          <td>https://cfw-fqdn/?contentCode=ICH&amp;entryID=SHA256value&amp;foo=true</td>
+          <td>https://backend-fqdn/?contentCode=ICH&amp;entryID=SHA256value</td>
+      </tr>
+      <tr>
+          <td>https://cfw-fqdn/?contentCode=ICH&amp;entryID=SHA256value&amp;foo=true&amp;index=1</td>
+          <td>https://backend-fqdn/?contentCode=ICH&amp;entryID=SHA256value</td>
+      </tr>
+  </tbody>
+</table>
+<p>The fetched URL is our cache key.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">expectedContentCode</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//use the created URL as the cache key
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//check for presence in the cache, return that if found. Otherwise, fetch from the origin.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">thisCacheKey</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">thisURL</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">thisCacheKey</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">originalRepsonse</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">thisURL</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Response</span>(<span style="color:#a6e22e">originalRepsonse</span>.<span style="color:#a6e22e">body</span>,<span style="color:#a6e22e">originalRepsonse</span>.<span style="color:#a6e22e">headers</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;application/json&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;Cache-Control&#34;</span>, <span style="color:#e6db74">&#34;public,max-age=60&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;Access-Control-Allow-Origin&#34;</span>, <span style="color:#a6e22e">thisAllowedOrigin</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(<span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">thisCacheKey</span>,<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">clone</span>()));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>Cache-Control</code> header determines how long Cloudflare retains the item in the cache. It is set low at 60 seconds for demonstration purposes only. Cloudflare page rules already scope the fetched URL; in reality, the answers cache for longer.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I intended to evaluate if there was merit in consolidating the API routes. The front end code to consume this API features less complexity and duplication on review.</p>
+<p>There is value in exploring the work to consolidate the Lambda functions into a single API route.</p>
+<p>When I complete that work, I will be more satisfied overall. And I expect to leave an element of Cloudflare workers in place for improved caching control and request hygiene.</p>
+<h2 id="related-posts">Related posts</h2>
+<ul>
+<li><a href="https://ja.mesmontgomery.co.uk/2020/12/new-ui-for-my-text-to-speech-player/">New UI for my text-to-speech player</a></li>
+<li><a href="https://ja.mesmontgomery.co.uk/2020/04/introducing-async-to-my-serverless-text-to-speech-player-for-jokes-and-quotes/">Introducing async to my serverless text-to-speech player for jokes and quotes</a></li>
+<li><a href="https://ja.mesmontgomery.co.uk/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/">My serverless &ldquo;jokes and quotes&rdquo; player</a></li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li>Thanks to <a href="https://blog.opstree.com/2020/06/30/cache-using-cloudflare-workers-cache-api/">opstree</a> for their most comprehensive writeup on the Cloudflare cache API.</li>
+<li>Thanks to the <a href="https://developers.cloudflare.com/workers/examples/cache-api">Cloudflare documentation contributors for their example on how to use the cache API</a></li>
+<li>Thanks to OpenMoji for the <a href="https://openmoji.org/library/#search=speech&amp;emoji=1F4AC">ballon</a>, <a href="https://openmoji.org/library/#search=read&amp;emoji=1F4D6">book</a> and speech <a href="https://openmoji.org/library/#search=parrot&amp;emoji=1F99C">parrot</a>. I have modified the colours on the parrot.</li>
+<li>And thanks to the <a href="https://www.lipsum.com/">Lorem Ipsum site</a> for their generator.</li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/aws">📂aws</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/api">📂api</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/scripting">📂scripting</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/text-to-speech"> 🏷️text-to-speech</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2020/12/new-ui-for-my-text-to-speech-player/"
+                class="button big previous">New UI for my text-to-speech player</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/"
+                class="button big next">Migrating to Cloudflare Pages</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

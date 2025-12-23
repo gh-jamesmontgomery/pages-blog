@@ -1,0 +1,1036 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Updating site privacy settings",
+        "headline" : "Updating site privacy settings",
+        "description" : "Working with Hugo privacy configuration.",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-09-10",
+        "dateModified" : "2019-09-10",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/09\/updating-site-privacy-settings\/",
+        "wordCount" : "371",
+        "keywords" : [ "hosting","hugo","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Updating site privacy settings</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="Working with Hugo privacy configuration.">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Updating site privacy settings">
+  <meta name="twitter:description" content="Working with Hugo privacy configuration.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/09/updating-site-privacy-settings/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Updating site privacy settings">
+  <meta property="og:description" content="Working with Hugo privacy configuration.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-09-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-09-10T00:00:00+00:00">
+    <meta property="article:tag" content="Hosting">
+    <meta property="article:tag" content="Hugo">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/silent-running-media.png">
+        
+
+        
+  <meta itemprop="name" content="Updating site privacy settings">
+  <meta itemprop="description" content="Working with Hugo privacy configuration.">
+  <meta itemprop="datePublished" content="2019-09-10T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-09-10T00:00:00+00:00">
+  <meta itemprop="wordCount" content="371">
+  <meta itemprop="keywords" content="Hosting,Hugo">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/09/updating-site-privacy-settings/">Updating site privacy settings</a></h1>
+            
+        
+        
+            <p>Working with Hugo privacy configuration.</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-09-10'>
+            September 10, 2019</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>2 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/09/updating-site-privacy-settings/" class="image featured" aria-label="Silent running">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/silent-running-media.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>I&rsquo;ve been reviewing the available Hugo privacy settings.</p>
+<p>You can review the latest configuration on my <a href="https://ja.mesmontgomery.co.uk/projects/this-site/">site</a> project page. Below I discuss the purpose of the changes.</p>
+<h2 id="do-not-track">Do not track</h2>
+<p>I&rsquo;ve updated my Hugo site configuration to respect &ldquo;do not track&rdquo; (DNT) browser settings in Google Analytics. The effect is similar to browsing a site in private or incognito mode, which if you used previously blocked Google Analytics.</p>
+<p>If you have DNT enabled as part of your usual browser configuration, Google Analytics on this site will not run when you visit.</p>
+<p>If you would like to configure DNT in your browser, check out the following guides:</p>
+<ul>
+<li><a href="https://support.google.com/chrome/answer/2790761?co=GENIE.Platform%3DDesktop&amp;hl=en">Google Chrome</a></li>
+<li><a href="https://support.mozilla.org/en-US/kb/how-do-i-turn-do-not-track-feature">Mozilla Firefox</a></li>
+<li><a href="https://support.microsoft.com/en-gb/help/4468242/microsoft-edge-browsing-data-and-privacy-microsoft-privacy">Microsoft Edge</a></li>
+</ul>
+<h2 id="session-storage-rather-than-a-cookie">Session storage rather than a cookie</h2>
+<p>Previous when visiting this site, if your browser did not block cookies, the Google Analytics integration would drop a cookie to store the GA Client ID. Following the enablement of  <code>useSessionStorage = true</code> this is no longer the case. When a tab is closed in your browser removes the associated session storage.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/09/browsersessionstorage.png'
+                            alt="Normal vs simple mode tweet">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h2 id="youtube">YouTube</h2>
+<p>The Hugo YouTube integration has the privacy-enhanced setting configured. Quoting Hugo documentation:</p>
+<blockquote>
+<p>When you turn on privacy-enhanced mode, YouTube won&rsquo;t store information about visitors on your website unless the user plays the embedded video.</p>
+</blockquote>
+<h2 id="twitter-content">Twitter content</h2>
+<p>I&rsquo;ve configured the Hugo Twitter integration to do not track. Quoting Hugo documentation:</p>
+<blockquote>
+<p>the tweet and its embedded page on your site are not used for purposes that include personalized suggestions and personalized ads.</p>
+</blockquote>
+<h2 id="making-use-of-the-mirror">Making use of the mirror</h2>
+<p>Up until now, I&rsquo;ve used my <a href="https://www.mesmontgomery.co.uk">&ldquo;www.mesmontgomery.co.uk&rdquo;</a> mirror of <a href="https://ja.mesmontgomery.co.uk">&ldquo;ja.mesmontgomery.co.uk&rdquo;</a> as just another location for hosting.</p>
+<p>The &ldquo;www&rdquo; mirror is now differentiated by entirely disabling Google Analytics.</p>
+<p>What remains is the YouTube and Twitter integration. The Twitter configuration is changed to use simple mode for a static content representation of the Tweet. The YouTube settings are unchanged.</p>
+<p>The most visible change will be to tweets on the mirror. Here is a comparison of the two render modes:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/09/TweetConversion.png'
+                            alt="Normal vs simple mode tweet">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h2 id="conclusion">Conclusion</h2>
+<p>It has been interesting to see the impact of external content integration and enhanced privacy configuration for the above service integrations. I&rsquo;m happy to have found additional controls to further respect visitor privacy choices.</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><a href="https://gohugo.io/about/hugo-and-gdpr/">About Hugo and GDPR</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/Do_Not_Track">Wikipedia article on do no track</a></li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/privacy">📂privacy</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/hosting"> 🏷️hosting</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/hugo"> 🏷️hugo</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/07/introducing-elite-dangerous-timeline/"
+                class="button big previous">Introducing Elite Dangerous Timeline</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/09/domain-migration-and-enabling-dnssec/"
+                class="button big next">Domain migration and enabling DNSSEC</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

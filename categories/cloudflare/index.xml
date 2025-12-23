@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloudflare on James Montgomery</title>
+    <link>https://ja.mesmontgomery.co.uk/categories/cloudflare/</link>
+    <description>Recent content in Cloudflare on James Montgomery</description>
+    <generator>Hugo</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ja.mesmontgomery.co.uk/categories/cloudflare/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducing Station Finder</title>
+      <link>https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/</link>
+      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/</guid>
+      <description>&lt;p&gt;After migrating my blog to Cloudflare Pages, I wanted to run an application exclusively using Cloudflare products. Inspiration struck on a journey where I was low on fuel in the car.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introducing-station-finder&#34;&gt;Introducing Station Finder&lt;/h2&gt;&#xA;&lt;p&gt;Station Finder is a single-page application. The goal was to provide a means to locate a fuel station.&lt;/p&gt;&#xA;&lt;p&gt;Initially, you select a postcode and choose from a dynamically populated list of station results.&lt;/p&gt;&#xA;&lt;p&gt;A station selection updates the objects on the page to reflect the station choice.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

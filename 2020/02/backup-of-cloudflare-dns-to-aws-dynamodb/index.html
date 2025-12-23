@@ -1,0 +1,1084 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Backup of Cloudflare DNS to AWS DynamoDB",
+        "headline" : "Backup of Cloudflare DNS to AWS DynamoDB",
+        "description" : "Using AWS Lambda to copy records into DynamoDB via the Libcloud library",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2020",
+        "datePublished": "2020-02-21",
+        "dateModified" : "2020-02-21",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2020\/02\/backup-of-cloudflare-dns-to-aws-dynamodb\/",
+        "wordCount" : "940",
+        "keywords" : [ "python","dns","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Backup of Cloudflare DNS to AWS DynamoDB</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="Using AWS Lambda to copy records into DynamoDB via the Libcloud library">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Backup of Cloudflare DNS to AWS DynamoDB">
+  <meta name="twitter:description" content="Using AWS Lambda to copy records into DynamoDB via the Libcloud library">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Backup of Cloudflare DNS to AWS DynamoDB">
+  <meta property="og:description" content="Using AWS Lambda to copy records into DynamoDB via the Libcloud library">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2020-02-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-02-21T00:00:00+00:00">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="DNS">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/20-cf-backup.png">
+        
+
+        
+  <meta itemprop="name" content="Backup of Cloudflare DNS to AWS DynamoDB">
+  <meta itemprop="description" content="Using AWS Lambda to copy records into DynamoDB via the Libcloud library">
+  <meta itemprop="datePublished" content="2020-02-21T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-02-21T00:00:00+00:00">
+  <meta itemprop="wordCount" content="940">
+  <meta itemprop="keywords" content="Python,DNS">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/">Backup of Cloudflare DNS to AWS DynamoDB</a></h1>
+            
+        
+        
+            <p>Using AWS Lambda to copy records into DynamoDB via the Libcloud library</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2020-02-21'>
+            February 21, 2020</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>5 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/" class="image featured" aria-label="Using AWS Lambda to copy records into DynamoDB via the Libcloud library">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/20-cf-backup.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>After a short break, I decided to take an item off the project list. DNS is a rich source of inspiration for me - and so I elected for a quick win in the form of serverless DNS records backup. The goal of which is to backup my DNS zone contents, via functions as a service (FaaS) and storage as a service (object or database).</p>
+<p>You can find all the associated code for this on my <a href="https://github.com/gh-jamesmontgomery/cloudflare-dns">GitHub page</a>.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>My DNS zone, at the time of writing, is hosted with Cloudflare. They provide an API with the capability to list records.</p>
+<p>Addressing the speed aspect of a quick win, I decided to access these records via a library rather than using the API directly. I have previously used Apache&rsquo;s Libcloud Python library for <a href="https://www.linkedin.com/pulse/apis-automation-udla-using-dns-learn-anything-james-montgomery/">other projects</a> and found Cloudflare support within.</p>
+<p>Getting a list of records was only a few lines of code away:</p>
+<ul>
+<li>Import library</li>
+<li>Instantiate the provider driver for Cloudflare</li>
+<li>Obtain the zone ID (at one-time action when working with single domain setups such as mine)</li>
+<li>Call the list_records() method and process the results.</li>
+</ul>
+<h2 id="retrieving-your-zone-id">Retrieving your zone ID</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>driver <span style="color:#f92672">=</span> cls(cfUsername, apiKey)
+</span></span><span style="display:flex;"><span>zones <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>list_zones()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>len(zones)<span style="color:#e6db74">}</span><span style="color:#e6db74"> zone(s) found&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> zone <span style="color:#f92672">in</span> zones:
+</span></span><span style="display:flex;"><span>    print(zone<span style="color:#f92672">.</span>id,zone<span style="color:#f92672">.</span>domain)
+</span></span></code></pre></div>
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2020/02/cf-zones.gif'
+                            alt="Example zone listing.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h2 id="working-with-the-record-data-in-libcloud">Working with the record data in Libcloud</h2>
+<p>The record object is composed of some common attributes across record types, and an attribute called extra. Extra is a dictionary of values specific to the driver or record type. Proxied would be specific to Cloudflare, whereas priority would be specific to record types such as MX and SRV. Below is an example of the available data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>vars(thisRecord)
+</span></span><span style="display:flex;"><span>{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#e6db74">&#39;cf_generated_id&#39;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;name&#39;</span>: <span style="color:#e6db74">&#39;ja&#39;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;type&#39;</span>: <span style="color:#e6db74">&#39;A&#39;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;data&#39;</span>: <span style="color:#e6db74">&#39;151.101.1.195&#39;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;zone&#39;</span>: <span style="color:#f92672">&lt;</span>Zone: domain<span style="color:#f92672">=</span>mesmontgomery<span style="color:#f92672">.</span>co<span style="color:#f92672">.</span>uk, ttl<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, provider<span style="color:#f92672">=</span>CloudFlare DNS <span style="color:#f92672">...&gt;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;driver&#39;</span>: <span style="color:#f92672">&lt;</span>libcloud<span style="color:#f92672">.</span>dns<span style="color:#f92672">.</span>drivers<span style="color:#f92672">.</span>cloudflare<span style="color:#f92672">.</span>CloudFlareDNSDriver object at <span style="color:#ae81ff">0x10078a810</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;ttl&#39;</span>: <span style="color:#ae81ff">300</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;extra&#39;</span>: {<span style="color:#e6db74">&#39;data&#39;</span>: <span style="color:#66d9ef">None</span>, <span style="color:#e6db74">&#39;locked&#39;</span>: <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">&#39;proxiable&#39;</span>: <span style="color:#66d9ef">True</span>, <span style="color:#e6db74">&#39;modified_on&#39;</span>: <span style="color:#e6db74">&#39;2019-03-09T15:27:48.310054Z&#39;</span>, <span style="color:#e6db74">&#39;proxied&#39;</span>: <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">&#39;created_on&#39;</span>: <span style="color:#e6db74">&#39;2019-03-09T15:27:48.310054Z&#39;</span>}}
+</span></span></code></pre></div><h2 id="working-with-dynamodb-and-lambda">Working with DynamoDB and Lambda</h2>
+<p>My only prior experience with DynamoDB is my <a href="https://ja.mesmontgomery.co.uk/projects/elite-dangerous-timeline/">Elite Dangerous timeline project</a>, and I operated that instance locally. On this occasion, I would be storing the information of interest into a table hosted on the live DynamoDB service.</p>
+<p>What are my intended goals?</p>
+<ul>
+<li>Document DNS records as last seen when crawling the API; and</li>
+<li>Maintain a history of modifications and deletions. But not indefinitely.</li>
+</ul>
+<p>To that end, I created a DynamoDB table as follows:</p>
+<ul>
+<li>The primary key set as the Cloudflare record ID</li>
+<li>With a secondary sort key as the Cloudflare modified_on record value</li>
+</ul>
+<p>The Lambda function processes each record and also stores the following:</p>
+<ul>
+<li>Record values of interest (name, data/content, type, TTL, priority)</li>
+<li>Last seen epoch (by my Lambda script) value of now.</li>
+<li>An expires epoch value set one week into the future.</li>
+</ul>
+<p>To use the Libcloud library within Lambda, I created a layer and attached it to my function.</p>
+<p>Below is an example of the function running:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2020/02/cf-record-backup.gif'
+                            alt="Example zone listing.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>You&rsquo;ll observe me:</p>
+<ul>
+<li>Performing an authoritative lookup of <code>sonic.mesmontgomery.co.uk</code> against a Cloudflare name server.</li>
+<li>Editing this record in the Cloudflare UI, because Sonic is <em>really</em> quick. The sharper eyed amongst you may spot the spelling mistake; it was a one-take capture. And I missed the Grammarly prompt too 🤦‍♂️.</li>
+<li>I show the three top results in the database. There are twenty-three, to begin with, and two of those are different versions of the sonic record already.</li>
+<li>My Lambda function is executed and now there are twenty-four records.</li>
+<li>I refresh the DynamoDB query (which you&rsquo;ll note is sorted by &lsquo;cf_modified_on&rsquo;). The top three records are all Sonic related.</li>
+</ul>
+<h2 id="ttl">TTL</h2>
+<p>In the recording above, you may notice an &rsquo;expireOn (TTL)&rsquo; field. When I began this project, I expected to have to lifecycle my records with Lambda functions. As I collected deleted records or record history, they would remain forever without deleting them.</p>
+<p>I was surprised and delighted to see that <a href="https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/howitworks-ttl.html">this functionality is native to DynamoDB - without cost</a>.</p>
+<blockquote>
+<p>Processing takes place automatically, in the background, and doesn&rsquo;t affect read or write traffic to the table. Also, deletes performed via TTL do not count towards capacity units or request units. TTL deletes are available at no additional cost.</p>
+</blockquote>
+<h2 id="backup">Backup</h2>
+<p>I&rsquo;ve elected to enable <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.html">point-in-time recovery</a> on the table to experiment with the feature. As my table is KB in size, even if the <a href="https://aws.amazon.com/dynamodb/pricing/provisioned/">storage charges</a> aren&rsquo;t free-tier applicable, it won&rsquo;t be a noticeable cost.</p>
+<p>PITR is a continuous backup function for the last 35 days. As I maintain a record history and deletions in the database, I can go as far back as I configure in the function at the cost of additional storage in the table.</p>
+<h2 id="the-case-of-missing-priority">The case of missing priority</h2>
+<p>When I first used Libcloud, I tried using the export zone to file method. I wasn&rsquo;t successful in using it; however, I noted the error message (KeyError: &lsquo;priority&rsquo;) and vowed to return to it.</p>
+<p>As I was completing my record attribute review, priority was one of the last to add. And it wasn&rsquo;t present in the returned data.</p>
+<p>I checked the official API documentation to determine if this was a supported result. In the end, I reviewed the Libcloud driver itself and found what I believed to be an omission in the Extra dictionary.</p>
+<p>To work around the issue, I modified the driver file (drivers/cloudflare.py) to include priority in RECORD_EXTRA_ATTRIBUTES and <a href="https://github.com/apache/libcloud/issues/1428">opened an issue</a> on GitHub.</p>
+<p>That fix was confirmed and merged into the trunk version. 😃</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I&rsquo;m happy to take off a long-standing item on my to-do list. It was fun to explore a serverless solution to the problem. Should I wish to automate this, a <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.html">Cloudwatch scheduled event</a> would do the job.</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><a href="https://openmoji.org/library/#search=hedgehog&amp;emoji=1F994">OpenMoji for the hedgehog image that I modifed</a>.</li>
+<li><a href="https://libcloud.apache.org/">Apache Libcloud for their library</a>.</li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/scripting">📂scripting</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/aws">📂aws</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/python"> 🏷️python</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/dns"> 🏷️dns</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/12/detecting-digit-combinations-in-a-number-with-powershell/"
+                class="button big previous">Detecting digit combinations in a number with PowerShell</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/"
+                class="button big next">A Serverless text-to-speech player for jokes and quotes</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

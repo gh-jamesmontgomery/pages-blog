@@ -1,0 +1,1310 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Detecting Digits with PowerShell",
+        "headline" : "Detecting Digits with PowerShell",
+        "description" : "A person can look at a number and determine which digits are present. How would a script achieve this?",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-10-28",
+        "dateModified" : "2019-10-28",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/10\/detecting-digits-with-powershell\/",
+        "wordCount" : "2634",
+        "keywords" : [ "powershell","tutorial","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Detecting Digits with PowerShell</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="A person can look at a number and determine which digits are present. How would a script achieve this?">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Detecting Digits with PowerShell">
+  <meta name="twitter:description" content="A person can look at a number and determine which digits are present. How would a script achieve this?">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/10/detecting-digits-with-powershell/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Detecting Digits with PowerShell">
+  <meta property="og:description" content="A person can look at a number and determine which digits are present. How would a script achieve this?">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-10-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-10-28T00:00:00+00:00">
+    <meta property="article:tag" content="PowerShell">
+    <meta property="article:tag" content="Tutorial">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/19-digitdetection-media.png">
+        
+
+        
+  <meta itemprop="name" content="Detecting Digits with PowerShell">
+  <meta itemprop="description" content="A person can look at a number and determine which digits are present. How would a script achieve this?">
+  <meta itemprop="datePublished" content="2019-10-28T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-10-28T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2634">
+  <meta itemprop="keywords" content="PowerShell,Tutorial">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/10/detecting-digits-with-powershell/">Detecting Digits with PowerShell</a></h1>
+            
+        
+        
+            <p>A person can look at a number and determine which digits are present. How would a script achieve this?</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-10-28'>
+            October 28, 2019</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>13 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/10/detecting-digits-with-powershell/" class="image featured" aria-label="I migrated my domain to iwantmyname.com and enabled DNSSEC on CloudFlare.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/19-digitdetection-media.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h1 id="table-of-contents">Table of contents</h1>
+<div class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tl-dr">TL; DR</a></li>
+    <li><a href="#how-to-think-about-the-problem">How to think about the problem</a></li>
+    <li><a href="#working-with-a-number-in-powershell">Working with a number in PowerShell</a></li>
+    <li><a href="#systemmathdivrem">[System.Math]::DivRem</a>
+      <ul>
+        <li><a href="#using-divrem-to-detect-a-digit">Using DivRem to detect a digit</a></li>
+        <li><a href="#using-divrem-to-detect-a-range-of-digits">Using DivRem to detect a range of digits</a></li>
+      </ul>
+    </li>
+    <li><a href="#contains">Contains</a>
+      <ul>
+        <li><a href="#using-contains-to-detect-a-digit">Using .contains() to detect a digit</a></li>
+        <li><a href="#using-contains-to-detect-a-range-of-digits">Using .contains() to detect a range of digits</a></li>
+      </ul>
+    </li>
+    <li><a href="#match">Match</a>
+      <ul>
+        <li><a href="#using--match-to-detect-a-specific-digit">Using -match to detect a specific digit</a></li>
+        <li><a href="#using--match-to-detect-a-range-of-digits">Using -Match to detect a range of digits</a></li>
+      </ul>
+    </li>
+    <li><a href="#split">Split</a>
+      <ul>
+        <li><a href="#using--split-to-detect-a-digit">Using -split to detect a digit</a></li>
+        <li><a href="#using--split-to-detect-a-range-of-digits">Using -split to detect a range of digits</a></li>
+      </ul>
+    </li>
+    <li><a href="#ascii-method">ASCII Method</a>
+      <ul>
+        <li><a href="#using-the-ascii-value-of-a-character-to-detect-unique-digits-in-a-number">Using the ASCII value of a character to detect unique digits in a number</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ul>
+</nav>
+  </div>  
+<h2 id="tl-dr">TL; DR</h2>
+<p>Have you ever wondered, how many unique digits are in a number? Alternatively, how many times does a given digit appear in a number? Using PowerShell, I explore these questions in a variety of means and examples.</p>
+<h2 id="how-to-think-about-the-problem">How to think about the problem</h2>
+<p>What is a digit?</p>
+<p>A numerical digit in the decimal system is:</p>
+<ul>
+<li>0-9.</li>
+<li>The integer representation of the characters &lsquo;0&rsquo;-&lsquo;9&rsquo;, &lsquo;0&rsquo; is zero, &lsquo;1&rsquo; is one, &lsquo;2&rsquo; is two and so on.</li>
+<li>Not a non-digit (see below).</li>
+<li>Greater than or equal to 0. But less than 10.</li>
+</ul>
+<p>A non-digit is describable as:</p>
+<ul>
+<li>Not an alphabetic character (&lsquo;a-z&rsquo;,&lsquo;A-Z&rsquo;) in the case of the Latin alphabet.</li>
+<li>Not a symbol (e.g. &lsquo;&amp;&rsquo;,&rsquo;%,&rsquo;&rsquo;$&rsquo;) or other special character.</li>
+</ul>
+<p>A number is a combination of digits, for example, 1765.</p>
+<h2 id="working-with-a-number-in-powershell">Working with a number in PowerShell</h2>
+<p>We can work with the number natively, or we can convert it into another data type. Treating our input as a <code>String</code> object opens many avenues. However, some are more straightforward than others.</p>
+<h2 id="systemmathdivrem">[System.Math]::DivRem</h2>
+<p>Using mathematics to answer the question is interesting in its own right. I was inspired by this <a href="https://www.reddit.com/r/PowerShell/comments/7ig820/how_to_access_individual_digits_in_a_number/">thread</a> to use <code>DivRem</code> for a timeless solution.</p>
+<p>Whenever you divide a decimal integer by 10, the remainder is the rightmost digit.</p>
+<p>2698 / 10 = 269 with a remainder of 8.<br>
+269 / 10 = 26 with a remainder of 9.<br>
+26 / 10 = 2 with a remainder of 6.<br>
+2 / 10 = 0 with a remainder of 2.</p>
+<h3 id="using-divrem-to-detect-a-digit">Using DivRem to detect a digit</h3>
+<p>In the below example we:</p>
+<ul>
+<li>Generate a random number as our digit of interest.</li>
+<li>Generate another random number to search in.</li>
+<li>Divide by ten the input number, evaluating the remainder each time.</li>
+<li>Repeat the division with the result until we reach zero or have found our number.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Digit of interest</span>
+</span></span><span style="display:flex;"><span>$lookingFor = Get-Random -Minimum <span style="color:#ae81ff">0</span> -Maximum <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Initialise found to false</span>
+</span></span><span style="display:flex;"><span>$fountInt = $false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Generate our desired input number</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int64</span>]$inputNumber = Get-Random  -Minimum <span style="color:#ae81ff">1111111111</span> -Maximum <span style="color:#ae81ff">9999999999</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int64</span>]$remainderFromDivision = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Write-host <span style="color:#e6db74">&#34;Generated: </span>$inputNumber<span style="color:#e6db74">, Looking for: </span>$lookingFor<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Division by ten until the result becomes 0 unless we find our desired digit first</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Using a division with remain function. Divide by 10 and retrieving the remainder via a reference</span>
+</span></span><span style="display:flex;"><span>    $inputNumber = [<span style="color:#66d9ef">System.Math</span>]::DivRem($inputNumber, <span style="color:#ae81ff">10</span>, [<span style="color:#66d9ef">ref</span>]$remainderFromDivision)
+</span></span><span style="display:flex;"><span>    write-host <span style="color:#e6db74">&#34;Processing: </span>$remainderFromDivision<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#remainder evaluated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($remainderFromDivision <span style="color:#f92672">-eq</span> $lookingFor){
+</span></span><span style="display:flex;"><span>        $fountInt = $true
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">elseif</span> ($inputNumber <span style="color:#f92672">-gt</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Continue looking in </span>$inputNumber<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> ($inputNumber <span style="color:#f92672">-gt</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">-and</span> $fountInt <span style="color:#f92672">-eq</span> $false)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Print the outcome</span>
+</span></span><span style="display:flex;"><span>Write-host <span style="color:#e6db74">&#34;Found digit: </span>$fountInt<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>Example output for the above:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>Generated<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2074723921</span>, Looking <span style="color:#66d9ef">for</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">207472392</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">20747239</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">2074723</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">207472</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">20747</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">2074</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">207</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Continue</span> looking <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Found digit<span style="color:#960050;background-color:#1e0010">:</span> True
+</span></span></code></pre></div><p>You may note the use of <code>[int64]</code> above and wonder why.</p>
+<p>Our random number generator specifies a maximum value of 9999999999. The maximum value of <code>[int32]</code> confirmed via <code>[int32]::MaxValue</code> is 2147483647. The result could exceed 2147483647 and would result in the data type for <code>$inputNumber</code> sometimes being <code>[int32]</code> and other times <code>[int64]</code>.</p>
+<p>Less obvious is the use of <code>[int64]</code> for <code>$remainderFromDivision</code> especially as the value (0-9) fits comfortably inside a smaller integer data type such as <code>[int32]</code> (the default for this value range).</p>
+<p>The issue arises with the definition of <a href="https://docs.microsoft.com/en-us/dotnet/api/system.math.divrem?view=netframework-4.8">DivRem</a> itself.</p>
+<blockquote>
+<p>DivRem(Int32, Int32, Int32)<br>
+DivRem(Int64, Int64, Int64)</p>
+</blockquote>
+<p>It does not support mixed 32-bit and 64-bit input. We prevent this from becoming an issue by explicitly casting our variables to 64-bit.</p>
+<p>Otherwise, PowerShell&rsquo;s automatic type assignment could result in a call to an undefined overload of DivRem such as <code>DivRem(Int32, Int64, Int64)</code> or <code>DivRem(Int64, Int64, Int32)</code>.</p>
+<p>Our other option would be to reduce the maximum value of the random number such that it cannot generate a 64-bit integer. One way to do this would be as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Generate our desired input number</span>
+</span></span><span style="display:flex;"><span>$inputNumber = Get-Random  -Minimum <span style="color:#ae81ff">1111111111</span> -Maximum ([<span style="color:#66d9ef">int32</span>]::MaxValue)
+</span></span><span style="display:flex;"><span>$remainderFromDivision = <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><h3 id="using-divrem-to-detect-a-range-of-digits">Using DivRem to detect a range of digits</h3>
+<p>We expand on the above to search for unique digits. During the do-while loop, evaluation of each remainder result against an array of numbers found so far occurs. If we have not seen it previously, we add the digit to the array.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Array to store unique digits found, initially empty.</span>
+</span></span><span style="display:flex;"><span>$foundInts = @()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Generate our desired input number and initialise remainder variable</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int64</span>]$inputNumber = Get-Random  -Minimum <span style="color:#ae81ff">1111111111</span> -Maximum <span style="color:#ae81ff">9999999999</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int64</span>]$remainderFromDivision = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Write-host <span style="color:#e6db74">&#34;Generated: </span>$inputNumber<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Division by ten until the inputNumber gets down to 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Using a division with remain function. Divide by 10 and retrieving the remainder via a reference</span>
+</span></span><span style="display:flex;"><span>    $inputNumber = [<span style="color:#66d9ef">System.Math</span>]::DivRem($inputNumber, <span style="color:#ae81ff">10</span>, [<span style="color:#66d9ef">ref</span>]$remainderFromDivision)
+</span></span><span style="display:flex;"><span>    write-host <span style="color:#e6db74">&#34;Processing: </span>$remainderFromDivision<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#remainder evaluated against the foundInts array</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($remainderFromDivision -notin $foundInts){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#Add to the array if not present</span>
+</span></span><span style="display:flex;"><span>        $foundInts += $remainderFromDivision
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> ($inputNumber <span style="color:#f92672">-gt</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Print the found integers in ascending order of value</span>
+</span></span><span style="display:flex;"><span>$foundInts | Sort-Object | ForEach-Object {Write-Host <span style="color:#e6db74">&#34;[Math-sorted]Digit </span>$_<span style="color:#e6db74"> detected&#34;</span>}
+</span></span></code></pre></div><p>The code above outputs the following result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span>Generated<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">8438923050</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>Processing<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>[Math-sorted]Digit <span style="color:#ae81ff">0</span> detected
+</span></span><span style="display:flex;"><span>[Math-sorted]Digit <span style="color:#ae81ff">2</span> detected
+</span></span><span style="display:flex;"><span>[Math-sorted]Digit <span style="color:#ae81ff">3</span> detected
+</span></span><span style="display:flex;"><span>[Math-sorted]Digit <span style="color:#ae81ff">4</span> detected
+</span></span><span style="display:flex;"><span>[Math-sorted]Digit <span style="color:#ae81ff">5</span> detected
+</span></span><span style="display:flex;"><span>[Math-sorted]Digit <span style="color:#ae81ff">8</span> detected
+</span></span><span style="display:flex;"><span>[Math-sorted]Digit <span style="color:#ae81ff">9</span> detected
+</span></span></code></pre></div><h2 id="contains">Contains</h2>
+<p>Next up, <code>.contains()</code>, a native method to <code>String</code> which returns a boolean answer (true or false) if the input string is present.</p>
+<h3 id="using-contains-to-detect-a-digit">Using .contains() to detect a digit</h3>
+<p>The contains method accepts an integer value for the search term. The result is that we only need to convert one number to a string.</p>
+<p>To illustrate this, we explicitly cast our variables to the <code>[string]</code> and <code>[int]</code> data types in this example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span>[<span style="color:#66d9ef">string</span>]$inputText = <span style="color:#e6db74">&#34;60263455&#34;</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$myDigit = <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>$inputText.Contains($myDigit)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting True as the result, as the digit is present.</span>
+</span></span></code></pre></div><p>If the original data is an integer, it is required to convert into a string. In this example the conversion is illustrated via <code>$originalNumber.ToString()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$originalNumber = <span style="color:#ae81ff">60263455</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">string</span>]$inputText = $originalNumber.ToString()
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$myDigit = <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>$inputText.Contains($myDigit)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting False as the result, as the digit is not present.</span>
+</span></span></code></pre></div><h3 id="using-contains-to-detect-a-range-of-digits">Using .contains() to detect a range of digits</h3>
+<p>In this example, we build a <code>List</code> of digits. The presence of a digit in this list is the basis of our test.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span><span style="color:#75715e">#Setup our input number as a string</span>
+</span></span><span style="display:flex;"><span>$inputText = (<span style="color:#ae81ff">60263455</span>).ToString()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Create a generic list for integers</span>
+</span></span><span style="display:flex;"><span>$myLOD = [<span style="color:#66d9ef">System.Collections.Generic.List[int]</span>]::new()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Load the list with all digits of interest. In this case we add the full range.</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span> .. <span style="color:#ae81ff">9</span> | ForEach-Object {$myLOD.Add($_)}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Loop through each digit in the list</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span>($digit <span style="color:#66d9ef">in</span> $myLOD){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Test if the original input text contains the digit</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($inputtext.Contains($digit))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;[list of digits]</span>$digit<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The code above outputs the following result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span>[<span style="color:#66d9ef">list of digits</span>]<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">list of digits</span>]<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">list of digits</span>]<span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">list of digits</span>]<span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">list of digits</span>]<span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">list of digits</span>]<span style="color:#ae81ff">6</span>
+</span></span></code></pre></div><h2 id="match">Match</h2>
+<p>The <code>-match</code> comparison operator works similarly to <code>.contains()</code>. Where <code>.contains()</code> seeks a referenced value, <code>-match</code> tests for the presence of pattern specified in regex form.</p>
+<h3 id="using--match-to-detect-a-specific-digit">Using -match to detect a specific digit</h3>
+<p>You can test for a digit as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$inputNumber = <span style="color:#ae81ff">563</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$searchingFor = <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>$inputNumber <span style="color:#f92672">-match</span> $searchingFor
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting False</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$inputNumber = <span style="color:#ae81ff">563</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$searchingFor = <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>$inputNumber <span style="color:#f92672">-match</span> $searchingFor
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting True</span>
+</span></span></code></pre></div><p>The <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators?view=powershell-6">documentation</a> for <code>-match</code> describes this as a string matching operator. The above example uses integers for input and matches terms. We can infer that type conversion occurs in the case of using integers.</p>
+<h3 id="using--match-to-detect-a-range-of-digits">Using -Match to detect a range of digits</h3>
+<p>The script for this is relatively compact as we can use <code>-match</code> in-line during the <code>if</code> conditional test. Use of the pipeline via <code>0 .. 9 | ForEach-Object</code> and the <code>$_</code> <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables?view=powershell-6">automatic variable</a> achieves this compactness.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Setup our input number explicitly as an Integer</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$inputNumber = <span style="color:#ae81ff">62419</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Iterate through the full digit range</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span> .. <span style="color:#ae81ff">9</span> | ForEach-Object{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Test for this number being present. -match returns true or false.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($inputNumber <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#34;</span>$_<span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        write-host <span style="color:#e6db74">&#34;[match]</span>$_<span style="color:#e6db74"> present&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        write-host <span style="color:#e6db74">&#34;[match]</span>$_<span style="color:#e6db74"> not present&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The code above produces the following output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">0</span> not present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">1</span> present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">2</span> present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">3</span> not present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">4</span> present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">5</span> not present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">6</span> present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">7</span> not present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">8</span> not present
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">match</span>]<span style="color:#ae81ff">9</span> present
+</span></span></code></pre></div><h2 id="split">Split</h2>
+<p>The <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_split">split operator</a> is used to produce substrings from strings based on a provided delimiter. When the input is an integer, the split operator treats the input as if it were a string, saving us from any explicit type conversion.</p>
+<h3 id="using--split-to-detect-a-digit">Using -split to detect a digit</h3>
+<p>We can count the results of the split operation to determine if the delimiter (our digit of interest) is present.</p>
+<p>If the delimiter is present, the result is the output of two or more substrings as an array. If the delimiter is not present, the returned array contains only one item - the original input as a string.</p>
+<p>To illustrate the point on type conversion, we are casting our variables as integers via the use of <code>[int]</code>.</p>
+<p>For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Setup our input number and digit as integers</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$inputNumber = <span style="color:#ae81ff">17992347</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$myDigit = <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>($inputNumber -split $myDigit).count
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting 3 as a result, it is present twice in the input number.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$myDigit = <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>($inputNumber -split $myDigit).count
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting 2 as the result, it is present once in the input number.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$myDigit = <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>($inputNumber -split $myDigit).count
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting 1 as the result, it is not present in the input number.</span>
+</span></span></code></pre></div><p>The number of occurrences is always one less than the count result. Therefore, we can use count -1 to determine how many times the digit is present.</p>
+<h3 id="using--split-to-detect-a-range-of-digits">Using -split to detect a range of digits</h3>
+<p>We can expand on the above to detect which digits are present or non-present. In this example, an <code>Array</code> describes the set of numbers we wish to catch.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Setup our input number. This will default to an integer type. Check via $inputNumber.GetType()</span>
+</span></span><span style="display:flex;"><span>$inputNumber = <span style="color:#ae81ff">17239947</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Create an array of numbers we wish to detect.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Setup the array to contain these three numbers:</span>
+</span></span><span style="display:flex;"><span>$numbersToDetect = <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Alternatively, using the range operator, uncomment the next line to set up the array to contain a range of digits. In this case, the full range.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#$numbersToDetect = 0 .. 9</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$numbersToDetect| ForEach-Object {
+</span></span><span style="display:flex;"><span>    $thisCount = ($inputNumber -split $_).count <span style="color:#ae81ff">-1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($thisCount <span style="color:#f92672">-gt</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;[Split]Digit </span>$_<span style="color:#e6db74"> detected </span>$thisCount<span style="color:#e6db74"> times&#34;</span>
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">elseif</span> ($thisCount <span style="color:#f92672">-eq</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;[Split]Digit </span>$_<span style="color:#e6db74"> detected </span>$thisCount<span style="color:#e6db74"> time&#34;</span>
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;[Split]Digit </span>$_<span style="color:#e6db74"> not detected&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The code above outputs the following result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">1</span> detected <span style="color:#ae81ff">1</span> time
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">7</span> detected <span style="color:#ae81ff">2</span> times
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">8</span> not detected
+</span></span></code></pre></div><p>Illustrated above is the potential to check for specific digits 1, 7 and 8. The next line (<code>#$numbersToDetect = 0 .. 9</code>) illustrates how this could be changed to check for the presence of all digits. The results of this change would be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">0</span> not detected
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">1</span> detected <span style="color:#ae81ff">1</span> time
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">2</span> detected <span style="color:#ae81ff">1</span> time
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">3</span> detected <span style="color:#ae81ff">1</span> time
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">4</span> detected <span style="color:#ae81ff">1</span> time
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">5</span> not detected
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">6</span> not detected
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">7</span> detected <span style="color:#ae81ff">2</span> times
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">8</span> not detected
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Split</span>]Digit <span style="color:#ae81ff">9</span> detected <span style="color:#ae81ff">2</span> times
+</span></span></code></pre></div><p>If you wished to check for the presence of the complete set without the per-digit detail, the following would suffice:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Setup our input number. This variable defaults to an integer type. Check via $inputNumber.GetType()</span>
+</span></span><span style="display:flex;"><span>$inputNumber = <span style="color:#ae81ff">172399475680</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Setup the array to contain the full range of digits</span>
+</span></span><span style="display:flex;"><span>$numbersToDetect = <span style="color:#ae81ff">0</span> .. <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Setup result text and text colour if all numbers are found</span>
+</span></span><span style="display:flex;"><span>$allDigitsPresent = $true
+</span></span><span style="display:flex;"><span>$thisColour = <span style="color:#e6db74">&#34;Green&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Loop through each digit in the array</span>
+</span></span><span style="display:flex;"><span>$numbersToDetect | ForEach-Object {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Get the count of objects in the array create by the split operation and substract 1</span>
+</span></span><span style="display:flex;"><span>    $thisCount = ($inputNumber -split $_).count <span style="color:#ae81ff">-1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#If any count is equal to 0, this number is missing, therefore we do not have all the numbers we are looking for.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($thisCount <span style="color:#f92672">-eq</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#Change the result next now that we have found a missing number</span>
+</span></span><span style="display:flex;"><span>        $allDigitsPresent = $false
+</span></span><span style="display:flex;"><span>        $thisColour = <span style="color:#e6db74">&#34;Red&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Print the result text</span>
+</span></span><span style="display:flex;"><span>Write-host -ForegroundColor $thisColour <span style="color:#e6db74">&#34;All digits found? </span>$allDigitsPresent<span style="color:#e6db74"> &#34;</span>
+</span></span></code></pre></div><h2 id="ascii-method">ASCII Method</h2>
+<p>The ASCII method uses the relationship between the character of a digit, and it&rsquo;s ASCII assigned number. For example:</p>
+<p>The ASCII decimal value of &lsquo;0&rsquo; is 48, &lsquo;1&rsquo; is 49, &lsquo;2&rsquo; is 50, and so on until we get to &lsquo;9&rsquo; which is 57.</p>
+<p>Whenever you perform subtraction on a <code>Char</code>, the numeric result is the ASCII number. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">char</span>]$thisChar = <span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>$thisChar - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">48</span>
+</span></span></code></pre></div><p>The result is an integer which you could confirm with <code>.gettype()</code>. If we cast this back into a Char:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">char</span>]($thisChar-<span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>The result is the character &lsquo;0&rsquo;.</p>
+<p>When you perform addition in this manner, the default behaviour is character concatenation. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">char</span>]$thisChar = <span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>$thisChar + <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>The result is the string &ldquo;11&rdquo;, rather than the ASCII value of 50 that you might expect.</p>
+<p>By casting the character into an integer value, we can achieve consistent results:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">char</span>]$thisChar = <span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$thisChar + <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">char</span>]$thisChar = <span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$thisChar - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">48</span>
+</span></span></code></pre></div><p>Lastly, you can return the character output if you wish, by casting the result back to Char:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">char</span>]$thisChar = <span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$thisInt = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">char</span>]([<span style="color:#66d9ef">int</span>]$thisChar + $thisInt)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><h3 id="using-the-ascii-value-of-a-character-to-detect-unique-digits-in-a-number">Using the ASCII value of a character to detect unique digits in a number</h3>
+<p>Now that we understand that the ASCII value of a digit is always 48 from its integer value, we can proceed as follows:</p>
+<ul>
+<li>Convert the number to an array of characters</li>
+<li>Get the ASCII value of each character and subtract 48. The character is a digit if the result is between 0 and 9.</li>
+<li>To find all unique digits, store discovered integers as you process the characters.</li>
+</ul>
+<p>An example of this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Setup our input number as a sting</span>
+</span></span><span style="display:flex;"><span>$inputText = (<span style="color:#ae81ff">1601263455</span>).ToString()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>$thisColour = <span style="color:#e6db74">&#34;Yellow&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Create empty array</span>
+</span></span><span style="display:flex;"><span>$foundInts = @()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Read every character in the array of characters created from the string $inputtext</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span>($readChar <span style="color:#66d9ef">in</span> $inputtext.ToCharArray()){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#For each character we subtract 48 from its ASCII value</span>
+</span></span><span style="display:flex;"><span>    $charAsInt = $readChar - <span style="color:#ae81ff">48</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#We test if the result is in the range 0-9</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($charAsInt <span style="color:#f92672">-ge</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">-And</span> $charAsInt <span style="color:#f92672">-lt</span> <span style="color:#ae81ff">10</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#If the result is in the desired range, we test if found previously.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>($charAsInt -notin $foundInts){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">#If we haven&#39;t found the digit previously, we add it to the array.</span>
+</span></span><span style="display:flex;"><span>            $foundInts += $charAsInt
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">#Write which digit we have located. Digits printed in the order of detection.</span>
+</span></span><span style="display:flex;"><span>            Write-Host <span style="color:#e6db74">&#34;[ASCI]Digit </span>$charAsInt<span style="color:#e6db74"> detected&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Print how many unique digits were found.</span>
+</span></span><span style="display:flex;"><span>Write-host -ForegroundColor $thisColour $foundInts.Count <span style="color:#e6db74">&#34;found in the string&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Re-print the digits in ascending order.</span>
+</span></span><span style="display:flex;"><span>$foundInts | Sort-Object | foreach-object {Write-host <span style="color:#e6db74">&#34;[ASCI ordered] </span>$_<span style="color:#e6db74"> detected&#34;</span>}
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>I began working on this as part of another personal project requiring digit detection. Not entirely satisfied with my initial approach, I decided to find other ways to accomplish the same.</p>
+<p>This write-up shares these and I&rsquo;ve attempted to explain rationale along the way.</p>
+<p>If you&rsquo;ve other ways to do this, do share!</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>Other online works have assisted me directly or indirectly along the way, I&rsquo;ve tried to link in-line above or below.</p>
+<ul>
+<li><a href="https://www.reddit.com/r/PowerShell/comments/7ig820/how_to_access_individual_digits_in_a_number/">Reddit&rsquo;s /r/PowerShell and comments in this thread for the DivRem inspiration</a></li>
+<li><a href="https://blogs.technet.microsoft.com/ben_parker/2011/07/28/how-can-i-tell-if-a-string-in-powershell-contains-a-number/">Ben Parker&rsquo;s post inspired me to think of using ASCII values</a></li>
+<li><a href="https://powershellexplained.com/2018-10-15-Powershell-arrays-Everything-you-wanted-to-know/">Kevin Marquette&rsquo;s post on &ldquo;Everything you wanted to know about arrays&rdquo; was accessed a few times I&rsquo;m sure</a></li>
+<li><a href="https://openmoji.org/library/#search=puzzle&amp;emoji=1F9E9">OpenMoji for the puzzle image</a></li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/scripting">📂scripting</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/powershell"> 🏷️powershell</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/tutorial"> 🏷️tutorial</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/09/domain-migration-and-enabling-dnssec/"
+                class="button big previous">Domain migration and enabling DNSSEC</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/12/detecting-digit-combinations-in-a-number-with-powershell/"
+                class="button big next">Detecting digit combinations in a number with PowerShell</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

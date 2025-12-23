@@ -1,0 +1,877 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "projects",
+        "name" : "Elite Dangerous Text-to-speech",
+        "headline" : "Elite Dangerous Text-to-speech",
+        "description" : "A project for adding speech to text-only areas of the game Elite Dangerous. Including the detection and translation of foreign language text to English speech.",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-01-24",
+        "dateModified" : "2019-01-24",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/projects\/elite-dangerous-text-to-speech\/",
+        "wordCount" : "343",
+        "keywords" : [ "Blog" ]
+    }
+    </script>
+        
+            
+                <title>Elite Dangerous Text-to-speech</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+        
+            <meta name="description" content="A project for adding speech to text-only areas of the game Elite Dangerous. Including the detection and translation of foreign language text to English speech.">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Elite Dangerous Text-to-speech">
+  <meta name="twitter:description" content="A project for adding speech to text-only areas of the game Elite Dangerous. Including the detection and translation of foreign language text to English speech.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Elite Dangerous Text-to-speech">
+  <meta property="og:description" content="A project for adding speech to text-only areas of the game Elite Dangerous. Including the detection and translation of foreign language text to English speech.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="projects">
+    <meta property="article:published_time" content="2019-01-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-01-24T00:00:00+00:00">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/NeedForSpeed.png">
+        
+
+        
+  <meta itemprop="name" content="Elite Dangerous Text-to-speech">
+  <meta itemprop="description" content="A project for adding speech to text-only areas of the game Elite Dangerous. Including the detection and translation of foreign language text to English speech.">
+  <meta itemprop="datePublished" content="2019-01-24T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-01-24T00:00:00+00:00">
+  <meta itemprop="wordCount" content="343">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">projects</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/">Elite Dangerous Text-to-speech</a></h1>
+            
+        
+        
+            <p>A project for adding speech to text-only areas of the game Elite Dangerous. Including the detection and translation of foreign language text to English speech.</p>
+        
+    </div>
+    <div class="meta">
+
+      <span class="author"></span>
+      <span class="author">Google Cloud</span>
+      
+    </div>
+</header>
+
+
+  
+
+  
+  <div id="content">
+    <h2 id="table-of-contents">Table of contents</h2>
+<div class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#table-of-contents">Table of contents</a></li>
+    <li><a href="#status">Status</a></li>
+    <li><a href="#implementation-approach">Implementation approach</a></li>
+    <li><a href="#video">Video</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+    <li><a href="#aspirations">Aspirations</a></li>
+    <li><a href="#relevant-posts">Relevant posts</a></li>
+    <li><a href="#similar-projects">Similar projects</a></li>
+  </ul>
+</nav>
+  </div>  
+<h2 id="status">Status</h2>
+<p>Successfully converts all player and NPC text chat into synthetic speech (via Google Cloud Text-to-speech).
+Optionally player text language is detected as non-English. In this case, it translates into English text before it then converts into synthetic speech.
+In-game events can drive other speech outcomes. For example, a bounty kill triggers a Chuck Norris API joke retrieval and plays the resulting joke as speech.</p>
+<h2 id="implementation-approach">Implementation approach</h2>
+<p>A locally operated REST API receives game events. This API connects to Google&rsquo;s API and requests conversion into speech. A queue located in memory stores the result. An HTML5 player will poll and playback the contents of this queue in the background via calls to the REST API.</p>
+<h2 id="video">Video</h2>
+<p>This video showcases the HTML5 player element. For demonstration purposes, I submit text manually via Postman to the text-to-speech local API endpoint. A variety of voices highlight the available range:
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/sYiHBtUYTHU?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+This video showcases in in-game experience for NPC and player text - including translation of German to English. If you want to see other examples (such as the Chuck Norris jokes upon bounty kill), please check out the <a href="https://www.youtube.com/watch?v=P6MsIaWAezA&amp;list=PLtWIhA9ObfYRL-nwKawQZZtf2FZfLubwD">playlist</a> on YouTube:
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/P6MsIaWAezA?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<a href="https://www.youtube.com/watch?v=P6MsIaWAezA&amp;list=PLtWIhA9ObfYRL-nwKawQZZtf2FZfLubwD">URL to all text-to-speech videos playlist</a></p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Two voices are used for the synthesis</li>
+<li>Pitch, tone and emphasis are changeable from defaults in a manual fashion</li>
+<li>All text events create speech API calls even if seen before</li>
+</ul>
+<h2 id="aspirations">Aspirations</h2>
+<p>In order of preference:</p>
+<ul>
+<li>Caching mechanism for already converted text</li>
+<li>Automatic variance of voice used</li>
+<li>Automatic mapping of voice to sources of text</li>
+</ul>
+<h2 id="relevant-posts">Relevant posts</h2>
+<ul>
+<li><a href="https://ja.mesmontgomery.co.uk/2019/03/tts-project-update-1-adding-texture-to-my-generated-speech/">TTS project update #1 - adding texture to my generated speech</a></li>
+<li><a href="https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/">A guide for using PowerShell with the Google Cloud Text-to-Speech API</a></li>
+<li><a href="https://www.linkedin.com/pulse/speech-synthesis-google-cloud-better-text-approach-james-montgomery/">Combining Google Cloud Text to Speech and translation services</a></li>
+<li><a href="https://www.linkedin.com/pulse/enhancing-3308-2018-apis-almost-universal-james-montgomery/">Translating player chat</a></li>
+</ul>
+<h2 id="similar-projects">Similar projects</h2>
+<p>Whilst I&rsquo;ve used this project to improve my knowledge in certain areas, I&rsquo;ve found the following similar efforts along the way. They&rsquo;re an inspiration in many ways. Do check them out:</p>
+<ul>
+<li><a href="https://sites.google.com/site/tts4ed/">TTS for Elite Dangerous</a></li>
+<li><a href="https://github.com/EDCD/EDDI">EDDI: The Elite Dangerous Data Interface</a></li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+    
+
+    
+    
+</ul>
+
+  </footer>
+</article>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

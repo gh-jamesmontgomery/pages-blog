@@ -1,0 +1,1290 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Visualising your DNS cache with PSGraph",
+        "headline" : "Visualising your DNS cache with PSGraph",
+        "description" : "Exploring how to create a visual with Powershell",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-04-26",
+        "dateModified" : "2019-04-26",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/04\/visualising-your-dns-cache-with-psgraph\/",
+        "wordCount" : "894",
+        "keywords" : [ "PowerShell","DNS","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Visualising your DNS cache with PSGraph</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="Exploring how to create a visual with Powershell">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Visualising your DNS cache with PSGraph">
+  <meta name="twitter:description" content="Exploring how to create a visual with Powershell">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/04/visualising-your-dns-cache-with-psgraph/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Visualising your DNS cache with PSGraph">
+  <meta property="og:description" content="Exploring how to create a visual with Powershell">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-04-26T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-04-26T00:00:00+00:00">
+    <meta property="article:tag" content="PowerShell">
+    <meta property="article:tag" content="DNS">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/psgraph-dns-social.png">
+        
+
+        
+  <meta itemprop="name" content="Visualising your DNS cache with PSGraph">
+  <meta itemprop="description" content="Exploring how to create a visual with Powershell">
+  <meta itemprop="datePublished" content="2019-04-26T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-04-26T00:00:00+00:00">
+  <meta itemprop="wordCount" content="894">
+  <meta itemprop="keywords" content="PowerShell,DNS">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/04/visualising-your-dns-cache-with-psgraph/">Visualising your DNS cache with PSGraph</a></h1>
+            
+        
+        
+            <p>Exploring how to create a visual with Powershell</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-04-26'>
+            April 26, 2019</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>5 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/04/visualising-your-dns-cache-with-psgraph/" class="image featured" aria-label="">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/psgraph-dns.top.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>In this post, I&rsquo;d like to introduce you to how I&rsquo;ve used <a href="https://github.com/KevinMarquette/PSGraph/">PSGraph</a> to create visuals from code.  I&rsquo;ll show you how to represent the Windows DNS cache graphically. Here is an example output (<a href="https://ja.mesmontgomery.co.uk/img/2019/04/psgraph-cache-1.png">click for a full size image</a>):</p>
+<p><a href="https://ja.mesmontgomery.co.uk/img/2019/04/psgraph-cache-1.png">
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/psgraph-cache-1.png'
+                            alt="Sample of my cache">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+</a></p>
+<p>Below I cover how to arrive at that outcome. You can find all scripts used at my <a href="https://github.com/gh-jamesmontgomery/psgraph-dns-cache">GitHub page</a>.</p>
+<h2 id="why-dns">Why DNS</h2>
+<p>The hierarchical nature of DNS (subdomain.topleveldomain.rootdomain) lends itself to graphing. Head over to <a href="https://dnsdumpster.com/">dnsdumpster</a> if you want to see an excellent example of that.</p>
+<p>If you would like a primer on the topic, the most accessible introduction to DNS is probably <a href="https://howdns.works/">this comic by DNSimple</a>:</p>
+<h2 id="the-dns-cache">The DNS Cache</h2>
+<p>One aspect of the protocol is the distributed caching involved. The intention is to decentralise recent lookups and reduce the load on the authoritative origin. The answer for a given query is likely to be the same if recently evaluated. The time for which to cache these answers is known as the time to live or TTL.</p>
+<p>One such place to view the DNS cache is in the client operating system.</p>
+<h2 id="accessing-the-dns-cache-from-powershell">Accessing the DNS cache from PowerShell</h2>
+<p>The <code>Get-DnsClientCache</code> cmdlet provides an alternative to the venerable <code>ipconfig /displaydns</code>. It is by this means that we will get access to the Windows OS DNS cache.</p>
+<h2 id="getting-started-with-psgraph">Getting started with PSGraph</h2>
+<p>There is good quality documentation on <a href="https://psgraph.readthedocs.io/en/latest/Quick-Start-Installation-and-Example/">getting started</a> in minutes. If you are the type of person who learns through examples - you have several examples <a href="https://psgraph.readthedocs.io/en/latest/Example-Gallery/">provided here</a>.</p>
+<p>Additionally, Kevin Marquette produced a module with some ready-made examples in <a href="https://github.com/KevinMarquette/PSGraphPlus">PSGraphPlus</a>.</p>
+<h2 id="creating-a-graph-from-the-dns-cache">Creating a graph from the DNS cache</h2>
+<h3 id="data-review">Data review</h3>
+<p>The first thing I considered was the data returned.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/psgraph-cache-2.png'
+                            alt="Sample of cmdlet output">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>Here are some fields that could be useful as an input:</p>
+<ul>
+<li>Entry</li>
+<li>Record name</li>
+<li>Record type</li>
+<li>data</li>
+</ul>
+<p>I elected to omit the following from consideration:</p>
+<ul>
+<li>CNAME results (orange box)</li>
+<li>PTR results (yellow box)</li>
+</ul>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/psgrapgh-cmdlet.png'
+                            alt="Sample of cmdlet output">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>The PTR results I filtered out due to a desire to focus on forward resolution. I ignored CNAMEs for much the same reason. While adding them would add some richness to the story of how an answer was determined - its exclusion simplified the problem and maintained a focus on the original record request.</p>
+<p>Therefore it became clear that I should focus solely on the content of the <code>Entry</code> field ignoring only those relating to <code>PTR</code> as a value in <code>Record Type</code>.</p>
+<p>The resulting graph would provide a breakdown by domain based on the original DNS request.</p>
+<h2 id="prototyping-a-graph">Prototyping a graph</h2>
+<p>In a perfect world, I would have arrived at the above conclusion before prototyping. The reality is that I experimented with PSGraph and supplied mock input to see how it might look. Here is an example prototype:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/psgrapgh-proto.png'
+                            alt="An early example">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>The exercise was useful as I had a clear understanding of how I needed to process the data. One particular lesson was that I should test for existing edges for the same relationship. Otherwise, the effect is additive. Here is an example if I restrict the depth to root domains only with and without unique edge testing:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/dnsgraph-TLDs-non-unique.png'
+                            alt="This is what happens if I applied edges without considering uniqueness">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/dnsgraph-TLDs-unique.png'
+                            alt="An clean example when testing for present edges">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h2 id="prototyping-parsing-the-dns-cache-data">Prototyping parsing the DNS cache data</h2>
+<p>Working solely with the <code>Entry</code> field data returned was the first choice. I decided to ignore PTR records during result processing rather than a filter with the query.</p>
+<p>I achieved this with the following conditional statement on the value of the <code>Entry</code> field data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>($result.Entry <span style="color:#f92672">-like</span> <span style="color:#e6db74">&#34;*.in-addr.arpa&#34;</span>)
+</span></span><span style="display:flex;"><span>{<span style="color:#75715e">#Reverse lookup processing}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>{<span style="color:#75715e">#Forward lookup processing}</span>
+</span></span></code></pre></div><p>The second challenge was arriving at the values required for the node values and labels in PSGraph. Let&rsquo;s consider the following record <code>www.google.com</code>.</p>
+<p>First of all, I split them into an array of strings based on <code>.</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span>$subs = @(<span style="color:#e6db74">&#39;www&#39;</span>,<span style="color:#e6db74">&#39;google&#39;</span>,<span style="color:#e6db74">&#39;com&#39;</span>)
+</span></span></code></pre></div><p>I then want to walk the results backwards to construct the following:</p>
+<ul>
+<li>ID = com, Label = com</li>
+<li>ID = google.com, Label = google</li>
+<li>ID =www.google.com, Label = www</li>
+</ul>
+<p>The label will be the array item current indexed. However, the node ID is a string based on a join of the items to this level.</p>
+<p>As the labels are what you see in the resulting diagram we achieve the ability to have more than one node with the same visible value (&ldquo;www&rdquo; is a prime example) yet retain its relationship with the parent domain.</p>
+<p>The code for this prototype is available in <code>WalkDNSCache-loop-proto.ps1</code> file on my <a href="https://github.com/gh-jamesmontgomery/psgraph-dns-cache">GitHub repository</a>.</p>
+<h2 id="putting-it-together">Putting it together</h2>
+<h3 id="tld-processing">TLD processing</h3>
+<p>I made a conscious choice to process the TLDs (e.g. com/net/io) separately rather than process them in the array walk. The intention was to simplify the loop.</p>
+<h3 id="uniqueness-testing">Uniqueness testing</h3>
+<p>To track unique node IDs, I&rsquo;m using a hash table. The value element is static at &ldquo;1&rdquo; - the thinking was a future version could using the counts of IDs in some fashion.</p>
+<p>The code for this prototype is available in <code>WalkDNSCache-psgraph-entry.ps1</code> file on my <a href="https://github.com/gh-jamesmontgomery/psgraph-dns-cache">GitHub repository</a>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this experience, I prototyped to assert my understanding of both the problem and the solution. With two unknowns (how to parse the data and how to utilise the visualisation library), it was a time-efficient means of arriving at a solution.</p>
+<p>I&rsquo;ve left the prototypes in the same repository for transparency in the method applied.</p>
+<p>It has been very satisfying, creating a visual from code. I&rsquo;ve tried to keep this example focused and accessible.</p>
+<h2 id="relevant-posts">Relevant posts</h2>
+<ul>
+<li><a href="https://www.powershellgallery.com/packages/PSGraph/">PSGraph on PowerShell Gallery</a></li>
+<li><a href="https://github.com/KevinMarquette/PSGraph/">PSGraph on GitHub</a></li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><a href="https://powershellexplained.com/2016-11-06-powershell-hashtable-everything-you-wanted-to-know-about/">PowerShell Explained with Kevin Marquette - for PSGraph and everything you need to know about hashtables
+</a></li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/visualisation">📂Visualisation</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/powershell"> 🏷️PowerShell</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/dns"> 🏷️DNS</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/"
+                class="button big previous">A punnet of raspberries with a side of visuals</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/05/producing-live-visuals-from-a-powershell-rest-api/"
+                class="button big next">Producing live visuals from a PowerShell REST API</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

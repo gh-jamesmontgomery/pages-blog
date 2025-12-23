@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>API on James Montgomery</title>
+    <link>https://ja.mesmontgomery.co.uk/categories/api/</link>
+    <description>Recent content in API on James Montgomery</description>
+    <generator>Hugo</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 13 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ja.mesmontgomery.co.uk/categories/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>API Diversions</title>
+      <link>https://ja.mesmontgomery.co.uk/2021/01/api-diversions/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2021/01/api-diversions/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;Recently reinvigorated with my new &lt;a href=&#34;https://ja.mesmontgomery.co.uk/2020/12/new-ui-for-my-text-to-speech-player/&#34;&gt;UI work&lt;/a&gt;, I set myself to task with simplifying the front end player code. No matter how I looked at it, I&amp;rsquo;d needed to rewrite the back end API to support a front end rewrite. But what if I didn&amp;rsquo;t precisely need to do that? Enter stage left, Cloudflare Workers.&lt;/p&gt;&#xA;&#xA;&#xA;&#xA;    &#xA;&#xA;    &#xA;    &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;  &#xA;    &#xA;  &#xA;&#xA;&#xA;    &#xA;&#xA;    &lt;div class=&#34;box alt&#34;&gt;&#xA;        &lt;div class=&#34;row uniform&#34;&gt;&#xA;        &#xA;        &#xA;        &#xA;            &#xA;                &lt;div class=&#34;1u&#34;&gt;&#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                    &#xA;                    &lt;span class=&#34;image fit&#34;&gt;&#xA;                &#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                        &lt;img src=&#39;https://ja.mesmontgomery.co.uk/img/2021/01/cfw-proxy-1.png&#39;&#xA;                            alt=&#34;Comparison of beta with the worker as proxy and handling query translation.&#34;&gt;&#xA;                    &lt;/span&gt;&lt;/div&gt;&#xA;                &#xA;                &#xA;            &#xA;            &#xA;        &#xA;        &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;&#xA;&lt;p&gt;Below I explain how I arrived at this. If you would like to view the Worker code, you can do so &lt;a href=&#34;https://github.com/gh-jamesmontgomery/cloudflare-workers/blob/main/api-proxy/tts-api-translate.js&#34;&gt;here&lt;/a&gt;. If you would like to view the sites (and compare), you may do so here:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Introducing async to my serverless text-to-speech player for jokes and quotes</title>
+      <link>https://ja.mesmontgomery.co.uk/2020/04/introducing-async-to-my-serverless-text-to-speech-player-for-jokes-and-quotes/</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2020/04/introducing-async-to-my-serverless-text-to-speech-player-for-jokes-and-quotes/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I revisit my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/&#34;&gt;serverless &amp;ldquo;jokes and quotes&amp;rdquo; player&lt;/a&gt;. The purpose was to remove the tight coupling between the client request and audio playback API source. To explore the issue, I have introduced DynamoDB to store pre-generated results.&lt;/p&gt;&#xA;&lt;h2 id=&#34;challenge-overview&#34;&gt;Challenge overview&lt;/h2&gt;&#xA;&lt;p&gt;Logically, all the components of my existing solution depend on each other to succeed to deliver audio to the client. You can visualise it as follows:&lt;/p&gt;&#xA;&#xA;&#xA;&#xA;    &#xA;&#xA;    &#xA;    &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;  &#xA;    &#xA;  &#xA;&#xA;&#xA;    &#xA;&#xA;    &lt;div class=&#34;box alt&#34;&gt;&#xA;        &lt;div class=&#34;row uniform&#34;&gt;&#xA;        &#xA;        &#xA;        &#xA;            &#xA;                &lt;div class=&#34;1u&#34;&gt;&#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                    &#xA;                    &lt;span class=&#34;image fit&#34;&gt;&#xA;                &#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                        &lt;img src=&#39;https://ja.mesmontgomery.co.uk/img/2020/04/tts-sync-overview.png&#39;&#xA;                            alt=&#34;Flow of the synchronous version.&#34;&gt;&#xA;                    &lt;/span&gt;&lt;/div&gt;&#xA;                &#xA;                &#xA;            &#xA;            &#xA;        &#xA;        &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;&#xA;&lt;p&gt;The challenge was to accomplish a solution which operated in the following fashion:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>A Serverless text-to-speech player for jokes and quotes</title>
+      <link>https://ja.mesmontgomery.co.uk/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/</link>
+      <pubDate>Tue, 31 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;I decided to dust off my text-to-speech list, implementing a serverless solution delivering random jokes and quotes. You may visit it at this address:&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://tts-ja.mesmontgomery.co.uk/&#34;&gt;https://tts-ja.mesmontgomery.co.uk/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;You can get a preview of the joke quality here:&lt;/p&gt;&#xA;&lt;!-- markdownlint-disable MD033 --&gt;&#xA;&lt;p&gt;&lt;audio controls&gt;&lt;source src=&#34;https://ja.mesmontgomery.co.uk/audio/AWS-TTS-20-four-engineers.mp3&#34; type=&#34;audio/mpeg&#34;&gt;Your browser does not support the audio element.&lt;/audio&gt;&lt;/p&gt;&#xA;&lt;!-- markdownlint-enable MD033 --&gt;&#xA;&lt;p&gt;Note: I can&amp;rsquo;t affect the humour quality 🤣.&lt;/p&gt;&#xA;&lt;h2 id=&#34;solution-overview&#34;&gt;Solution overview&lt;/h2&gt;&#xA;&lt;p&gt;Upon visiting the page, an event triggers calls to the API routes for their relative jokes and quotes. Contained in the API response is the source audio for the HTML5 audio controls.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>TTS project update 1 - adding texture to my generated speech</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/03/tts-project-update-1-adding-texture-to-my-generated-speech/</link>
+      <pubDate>Thu, 14 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/03/tts-project-update-1-adding-texture-to-my-generated-speech/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;d like to share an update on work to address some of the limitations in my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/google-cloud-text-to-speech#limitations&#34;&gt;text to speech project for Elite Dangerous.&lt;/a&gt;. Namely:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Single voice is used for the synthesis; and&lt;/li&gt;&#xA;&lt;li&gt;Pitch, tone and emphasis are unchanged from defaults.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;If you&amp;rsquo;d like to see the result of the work so far, here is a brief overview video, I&amp;rsquo;ll describe how we got here below:&lt;/p&gt;&#xA;&lt;!-- markdownlint-disable MD033 --&gt;&#xA;&lt;div align=&#34;center&#34;&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=6wFioalyoek&#34;&gt;&lt;img src=&#34;https://img.youtube.com/vi/6wFioalyoek/0.jpg&#34; alt=&#34;TTS March 19 update video!&#34;&gt;&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Google Cloud Text-to-Speech with PowerShell</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/</link>
+      <pubDate>Sun, 10 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;ll walk through the basics of using PowerShell to interact with the Google Cloud Text-to-Speech API. Partly a documentation exercise and somewhat a guide I&amp;rsquo;d like to have been able to read when I started on my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/&#34;&gt;Elite Dangerous Google Cloud Text-to-Speech project&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;As such, we&amp;rsquo;ll start with a basic script to produce an audio file and explain how that works. Later I&amp;rsquo;ll walk through some parameters of interest to affect the response. Lastly, I&amp;rsquo;ll introduce how we can use SSML for a variation in response.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How to base64 decode on Windows 10 without base64.exe</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/01/how-to-base64-decode-on-windows-10-without-base64.exe/</link>
+      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/01/how-to-base64-decode-on-windows-10-without-base64.exe/</guid>
+      <description>&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;p&gt;You can call certutil from PowerShell to produce the required file.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;There is a moment in life where you get stuck in a quick start guide - we&amp;rsquo;ve all been there. At the start of my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/&#34;&gt;Google Cloud text-to-speech project&lt;/a&gt; it arrived quickly and unexpectedly at &lt;a href=&#34;https://cloud.google.com/text-to-speech/docs/base64-decoding&#34;&gt;step two of this two-step quick start guide&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;I had successfully returned my first base64 encoded speech audio, onward to the last step:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&amp;ldquo;Decode the source text file using the Base64.exe tool:&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

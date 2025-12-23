@@ -1,0 +1,1420 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "A punnet of raspberries with a side of visuals",
+        "headline" : "A punnet of raspberries with a side of visuals",
+        "description" : "Pi-hole and DNS over DNSCrypt with a PowerShell dashboard.",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-04-06",
+        "dateModified" : "2019-04-06",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/04\/a-punnet-of-raspberries-with-a-side-of-visuals\/",
+        "wordCount" : "1034",
+        "keywords" : [ "PowerShell","DNS","Blog" ]
+    }
+    </script>
+        
+            
+                <title>A punnet of raspberries with a side of visuals</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="Pi-hole and DNS over DNSCrypt with a PowerShell dashboard.">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A punnet of raspberries with a side of visuals">
+  <meta name="twitter:description" content="Pi-hole and DNS over DNSCrypt with a PowerShell dashboard.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="A punnet of raspberries with a side of visuals">
+  <meta property="og:description" content="Pi-hole and DNS over DNSCrypt with a PowerShell dashboard.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-04-06T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-04-06T00:00:00+00:00">
+    <meta property="article:tag" content="PowerShell">
+    <meta property="article:tag" content="DNS">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/post5-media-1.png">
+        
+
+        
+  <meta itemprop="name" content="A punnet of raspberries with a side of visuals">
+  <meta itemprop="description" content="Pi-hole and DNS over DNSCrypt with a PowerShell dashboard.">
+  <meta itemprop="datePublished" content="2019-04-06T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-04-06T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1034">
+  <meta itemprop="keywords" content="PowerShell,DNS">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/">A punnet of raspberries with a side of visuals</a></h1>
+            
+        
+        
+            <p>Pi-hole and DNS over DNSCrypt with a PowerShell dashboard.</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-04-06'>
+            April 6, 2019</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>5 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/" class="image featured" aria-label="">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/post5-top-3.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h1 id="tl-dr">TL; DR</h1>
+<p>I finally dusted off that Raspberry Pi in the corner. Initially, I was putting Pi-hole through its paces. One thing led to another as a new rabbit hole emerged in the form of adding encrypted transport to forwarded queries (a <a href="https://ja.mesmontgomery.co.uk/2019/03/a-punnet-of-raspberries-with-a-side-of-api/#relevant-posts">subject</a> I visited in the past). I purchased another Pi for resiliency. I then explored how I might visualise the performance of the solution.</p>
+<p>Lastly, a first for me, I have shared this code on my <a href="https://github.com/gh-jamesmontgomery/ud-ping-dns">GitHub page</a>.</p>
+<h2 id="solution-overview">Solution overview</h2>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/pis-dnscrypt.png'
+                            alt="Two Pis as resolvers with DNSCrypt">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>This solution employs the Pi-hole servers as local caching resolvers with their onward traffic divided across ISPs. Each Pi has DNSCrypt acting as a cacheless DNS forwarder to OpenDNS using the DNSCrypt protocol.
+I am going to forgo a configuration write-up of how to configure Pi-hole with a loopback forwarder as <a href="https://scotthelme.co.uk/securing-dns-across-all-of-my-devices-with-pihole-dns-over-https-1-1-1-1/">Scott Helme covers this extensively</a>.</p>
+<h3 id="dnscrypt-configuration">DNSCrypt configuration</h3>
+<p>I followed the <a href="https://github.com/pi-hole/pi-hole/wiki/DNSCrypt-2.0">Pi-hole GitHub guide</a> with the following deviations from the example configuration file:</p>
+<ul>
+<li>Disable caching<br>
+To avoid multiple layers of caching Pi-hole is the only caching layer in the solution.</li>
+<li>Ignore system DNS (always use the failback resolver for initial resolvers list)<br>
+The operating system uses Pi-hole for DNS. The system DNS, in effect, is set up to use DNSCrypt. Without this configuration, it could not bootstrap itself. It would fail and use the failback resolver. This configuration anticipates that though it is not strictly speaking required.</li>
+</ul>
+<h3 id="addressing-a-single-point-of-failure">Addressing a single point of failure</h3>
+<p>DNSCrypt configuration allows for multiple resolvers with <a href="https://github.com/jedisct1/dnscrypt-proxy/wiki/Load-Balancing-Options">load balancing options</a>. The choice to use one target in OpenDNS is for consistency during testing. It also conveniently provides the debug TXT record which is useful to assert the expected DNSCrypt configuration is effective:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig @208.67.222.222 -t txt debug.opendns.com +short
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;server m21.lon&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;flags 20 0 70 180000000000000000007950800000000000000&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;originid 0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;actype 0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;source X.Y.Z.A:64792&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig @192.168.0.11 -t txt debug.opendns.com +short
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;server m29.lon&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;flags 20 0 70 180000000000000000007950800000000000000&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;originid 0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;actype 0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;source X.Y.Z.A:43590&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;dnscrypt enabled (716D496B684B3766)&#34;</span>
+</span></span></code></pre></div><p>I have <a href="https://blog.nightly.mozilla.org/2018/06/01/improving-dns-privacy-in-firefox/">DNS over HTTPS</a> enabled in Firefox allowing for name resolution should there be an issue.</p>
+<h4 id="bonus-rabbit-hole">Bonus rabbit hole</h4>
+<p>I took a moment to consider how to parse the debug response as a rudimentary &ldquo;what is my IP address?&rdquo; solution via PowerShell:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>$openDNSResponse = Resolve-DnsName -Name <span style="color:#e6db74">&#34;debug.opendns.com&#34;</span> -type TXT -Server <span style="color:#ae81ff">208.67</span>.222.222 -DnsOnly
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span>($answer <span style="color:#66d9ef">in</span> $OpenDNSResponse){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($answer.Strings <span style="color:#f92672">-match</span> <span style="color:#e6db74">&#34;source *&#34;</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        $strSourceAnswer = $answer.Strings
+</span></span><span style="display:flex;"><span>        $strSourceIPandPort = $strSourceAnswer.Substring(<span style="color:#ae81ff">7</span>)
+</span></span><span style="display:flex;"><span>        $strSourceIP = $strSourceIPandPort.Split(<span style="color:#e6db74">&#34;:&#34;</span>)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>$strSourceIP
+</span></span></code></pre></div><h2 id="performance-visualisation">Performance visualisation</h2>
+<p>I needed a way to visualise network and DNS latency in a time-series fashion. To this end, I created a PowerShell Universal Dashboard visual employing the following PowerShell commands:</p>
+<ul>
+<li><code>Measure-Command {Resolve-DnsName google.com -Server 192.168.0.11 -DnsOnly} | Select-Object -ExpandProperty Milliseconds</code><br>
+I am approximating the DNS query time by measuring the execution time of the <code>Resolve-DNSName</code> cmdlet. The overhead is apparent with local queries and is in the 1-3 ms range when compared to dig for the same request. I specify the <code>-DnsOnly</code> parameter to restrict the lookup to the DNS protocol.
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/pis-query-time.png'
+                            alt="Locally run dashboard showing ICMP and DNS performance.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+</li>
+<li><code>Get-WmiObject -Class Win32_PingStatus -Filter 'Address=&quot;208.67.222.222&quot;' | Select-Object -ExpandProperty responseTime</code><br>
+This command gives us the response time for a single ping to a given target.</li>
+</ul>
+<p>The Universal Dashboard is a two-row page with <a href="https://poshud.com/Monitors">UD monitors</a> graphing the results of the above commands with a 1-second resolution.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/pis-dashboard.png'
+                            alt="Locally run dashboard showing ICMP and DNS performance.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>The dashboard, when reviewed as top versus bottom, provides a comparison of the network latency and query resolution times. The bottom half, therefore, refers to our base latency to the target. The top half is the query time from the same target illustrating two different requests.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/pis-dashboard-explained.png'
+                            alt="Locally run dashboard showing ICMP and DNS performance.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>When we review the dashboard as left versus right, we are comparing the performance of remote resolution versus that of local name resolution solutions in the top half. The bottom half compares the base latency to the targets.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/pis-dashboard-explained-sidebyside.png'
+                            alt="Locally run dashboard showing ICMP and DNS performance.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h3 id="local-versus-remote-resolution">Local versus remote resolution</h3>
+<p>When judging the queries to use, I picked one (google.com) which I&rsquo;d consider being in the OpenDNS cache due to popularity with a modest time to live (TTL) of 300 seconds. As a contrast, I would compare this to a previously unseen record (blog.mesmontgomery.co.uk) with a very low TTL of 10 seconds.</p>
+<h4 id="googlecom">Google.com</h4>
+<p>The comparison of local vs remote results for Google are just what you would expect. If we subtract the network latency from the query time, we get an output similar to local query time.</p>
+<h4 id="blogmesmontgomerycouk">Blog.mesmontgomery.co.uk</h4>
+<p>The active 10 second TTL is due to the CNAME of <code>mesmontgomery.daaad5.flexbalancer.net</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>;; ANSWER SECTION:
+</span></span><span style="display:flex;"><span>blog.mesmontgomery.co.uk. <span style="color:#ae81ff">300</span>   IN      CNAME   mesmontgomery.daaad5.flexbalancer.net.
+</span></span><span style="display:flex;"><span>mesmontgomery.daaad5.flexbalancer.net. <span style="color:#ae81ff">10</span> IN CNAME ja.mesmontgomery.co.uk.
+</span></span><span style="display:flex;"><span>ja.mesmontgomery.co.uk. <span style="color:#ae81ff">300</span>     IN      A       151.101.1.195
+</span></span><span style="display:flex;"><span>ja.mesmontgomery.co.uk. <span style="color:#ae81ff">300</span>     IN      A       151.101.65.195
+</span></span></code></pre></div><p>The CNAME is a DNS based load-balanced solution called Flexbalancer by PerfOps. These graphs tell an interesting story:</p>
+<p>
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/blog-base.png'
+                            alt="Locally run dashboard showing ICMP and DNS performance.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+We can observe a consistent query response time locally with regular peaks at 10 seconds apart due to cache expiration:
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/blog-base-local.png'
+                            alt="Locally run dashboard showing ICMP and DNS performance.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+We observe an inconsistent query response time for remote queries:
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/04/blog-base-remote.png'
+                            alt="Locally run dashboard showing ICMP and DNS performance.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+</p>
+<p>We can observe that the peak query time is the same for both solutions. Manual testing with dig yields query times in the same range:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig @208.67.222.222 blog.mesmontgomery.co.uk
+</span></span><span style="display:flex;"><span>;; QUESTION SECTION:
+</span></span><span style="display:flex;"><span>;blog.mesmontgomery.co.uk.      IN      A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; ANSWER SECTION:
+</span></span><span style="display:flex;"><span>blog.mesmontgomery.co.uk. <span style="color:#ae81ff">276</span>   IN      CNAME   mesmontgomery.daaad5.flexbalancer.net.
+</span></span><span style="display:flex;"><span>mesmontgomery.daaad5.flexbalancer.net. <span style="color:#ae81ff">10</span> IN CNAME ja.mesmontgomery.co.uk.
+</span></span><span style="display:flex;"><span>ja.mesmontgomery.co.uk. <span style="color:#ae81ff">276</span>     IN      A       151.101.65.195
+</span></span><span style="display:flex;"><span>ja.mesmontgomery.co.uk. <span style="color:#ae81ff">276</span>     IN      A       151.101.1.195
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; Query time: <span style="color:#ae81ff">104</span> msec
+</span></span><span style="display:flex;"><span>;; SERVER: 208.67.222.222#53<span style="color:#f92672">(</span>208.67.222.222<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>We can surmise that we are hitting different OpenDNS resolvers behind the anycast address. The low TTL combined with low query volume does not allow for a high percentage of cache hits. Therefore most queries have the expense of authoritative lookups each time. In the case of a DNS based load balancer, this is deliberate.</p>
+<h2 id="in-conclusion">In conclusion</h2>
+<p>It is no surprise to see local caching solutions providing an improved experience. The low TTL effect on query latency may give you food for thought if your recordset is virtually static.</p>
+<p>What TTL to query volume ratio would allow for maximum cache hits in fair weather days while minimising the TTL is a rabbit hole for another day.</p>
+<p>Thanks to modern tooling via <a href="https://poshtools.com/">Poshtools</a> in the form of their excellent Universal Dashboard solution - we can create functional ad-hoc visualisation such as these.</p>
+<h2 id="relevant-posts">Relevant posts</h2>
+<ul>
+<li><a href="https://www.linkedin.com/pulse/quic-look-dns-james-montgomery/">A QUIC look at DNS</a></li>
+<li><a href="https://www.linkedin.com/pulse/containers-using-dns-learn-anything-james-montgomery/">Using DNS to learn anything</a></li>
+<li><a href="https://www.linkedin.com/pulse/apis-automation-udla-using-dns-learn-anything-james-montgomery/">APIs, automation and UDLA (using DNS to learn anything)</a></li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><a href="https://scotthelme.co.uk/securing-dns-across-all-of-my-devices-with-pihole-dns-over-https-1-1-1-1/">Securing DNS across all of my devices with Pi-Hole + DNS-over-HTTPS + 1.1.1.1</a></li>
+<li><a href="https://github.com/pi-hole/pi-hole/wiki/DNSCrypt-2.0">Pi-hole guide to setting up DNSCrypt</a></li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/visualisation">📂Visualisation</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/powershell"> 🏷️PowerShell</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/dns"> 🏷️DNS</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/03/duel-stack-life-exchanging-momentum-for-speed/"
+                class="button big previous">Duel stack life - exchanging momentum for speed</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/04/visualising-your-dns-cache-with-psgraph/"
+                class="button big next">Visualising your DNS cache with PSGraph</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

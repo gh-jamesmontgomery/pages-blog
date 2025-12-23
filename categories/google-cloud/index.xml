@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Google Cloud on James Montgomery</title>
+    <link>https://ja.mesmontgomery.co.uk/categories/google-cloud/</link>
+    <description>Recent content in Google Cloud on James Montgomery</description>
+    <generator>Hugo</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Fri, 22 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ja.mesmontgomery.co.uk/categories/google-cloud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Duel stack life - exchanging momentum for speed</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/03/duel-stack-life-exchanging-momentum-for-speed/</link>
+      <pubDate>Fri, 22 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/03/duel-stack-life-exchanging-momentum-for-speed/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;I knew duel stacking this site would introduce some challenges. In this case, I found myself chasing speed demons at the expense of a focus on other project time. I&amp;rsquo;ve enjoyed every minute of it - however, there&amp;rsquo;s a lesson in there.&lt;/p&gt;&#xA;&lt;h2 id=&#34;multi-cloud-thoughts&#34;&gt;Multi-cloud thoughts&lt;/h2&gt;&#xA;&lt;p&gt;This site is a &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/this-site/&#34;&gt;project&lt;/a&gt; which began on the one hand as a reason to explore the GCP Firebase hosting product. Extending it to AWS has added a dimension to it whilst still being relevant to the project itself.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>TTS project update 1 - adding texture to my generated speech</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/03/tts-project-update-1-adding-texture-to-my-generated-speech/</link>
+      <pubDate>Thu, 14 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/03/tts-project-update-1-adding-texture-to-my-generated-speech/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;d like to share an update on work to address some of the limitations in my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/google-cloud-text-to-speech#limitations&#34;&gt;text to speech project for Elite Dangerous.&lt;/a&gt;. Namely:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Single voice is used for the synthesis; and&lt;/li&gt;&#xA;&lt;li&gt;Pitch, tone and emphasis are unchanged from defaults.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;If you&amp;rsquo;d like to see the result of the work so far, here is a brief overview video, I&amp;rsquo;ll describe how we got here below:&lt;/p&gt;&#xA;&lt;!-- markdownlint-disable MD033 --&gt;&#xA;&lt;div align=&#34;center&#34;&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=6wFioalyoek&#34;&gt;&lt;img src=&#34;https://img.youtube.com/vi/6wFioalyoek/0.jpg&#34; alt=&#34;TTS March 19 update video!&#34;&gt;&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Google Firebase with a side of AWS Amplify</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/</link>
+      <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;ll discuss a rabbit hole that I went down with only a thin excuse as the reason. And here it is, a Reddit reply to a shared post from this site:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;I can&amp;rsquo;t view on my desktop because your site is blocked on my network. Sorry&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;The rabbit hole in question? Dual stacking &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/this-site/&#34;&gt;this site&lt;/a&gt; across Google and Amazon infrastructure.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introducing-aws-amplify&#34;&gt;Introducing AWS Amplify&lt;/h2&gt;&#xA;&lt;p&gt;I first read about Amplify in &lt;a href=&#34;https://aws.amazon.com/blogs/mobile/aws-mobile-gets-amplified/&#34;&gt;this blog post&lt;/a&gt;. It discussed the launch of Amplify Console as an evolution of the framework that proceeded it into a service offering. Described as:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Google Cloud Text-to-Speech with PowerShell</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/</link>
+      <pubDate>Sun, 10 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;ll walk through the basics of using PowerShell to interact with the Google Cloud Text-to-Speech API. Partly a documentation exercise and somewhat a guide I&amp;rsquo;d like to have been able to read when I started on my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/&#34;&gt;Elite Dangerous Google Cloud Text-to-Speech project&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;As such, we&amp;rsquo;ll start with a basic script to produce an audio file and explain how that works. Later I&amp;rsquo;ll walk through some parameters of interest to affect the response. Lastly, I&amp;rsquo;ll introduce how we can use SSML for a variation in response.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

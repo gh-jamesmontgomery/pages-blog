@@ -1,0 +1,1009 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Detecting digit combinations in a number with PowerShell",
+        "headline" : "Detecting digit combinations in a number with PowerShell",
+        "description" : "How we can inspect a number like 143256789 and determine it contains the digits 1-9",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-12-05",
+        "dateModified" : "2019-12-05",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/12\/detecting-digit-combinations-in-a-number-with-powershell\/",
+        "wordCount" : "1048",
+        "keywords" : [ "powershell","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Detecting digit combinations in a number with PowerShell</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="How we can inspect a number like 143256789 and determine it contains the digits 1-9">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Detecting digit combinations in a number with PowerShell">
+  <meta name="twitter:description" content="How we can inspect a number like 143256789 and determine it contains the digits 1-9">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/12/detecting-digit-combinations-in-a-number-with-powershell/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Detecting digit combinations in a number with PowerShell">
+  <meta property="og:description" content="How we can inspect a number like 143256789 and determine it contains the digits 1-9">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-12-05T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-12-05T00:00:00+00:00">
+    <meta property="article:tag" content="PowerShell">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/19-ode-media.png">
+        
+
+        
+  <meta itemprop="name" content="Detecting digit combinations in a number with PowerShell">
+  <meta itemprop="description" content="How we can inspect a number like 143256789 and determine it contains the digits 1-9">
+  <meta itemprop="datePublished" content="2019-12-05T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-12-05T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1048">
+  <meta itemprop="keywords" content="PowerShell">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/12/detecting-digit-combinations-in-a-number-with-powershell/">Detecting digit combinations in a number with PowerShell</a></h1>
+            
+        
+        
+            <p>How we can inspect a number like 143256789 and determine it contains the digits 1-9</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-12-05'>
+            December 5, 2019</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>5 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/12/detecting-digit-combinations-in-a-number-with-powershell/" class="image featured" aria-label="How we can inspect a number like 143256789 and determine it contains the digits 1-9.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/19-ode-media.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>How do you pass the time on a car journey? Most of us have memories of &ldquo;I spy&rdquo; or other game.</p>
+<p>Lately, I&rsquo;ve been looking out for number combinations after a car I owned passed 123k miles - specifically 123456 miles. What&rsquo;s more, the trip computer almost made it read 1234567890!</p>
+<p>As time passed, I was looking out for other odometer readings. 123465 miles was the next number of interest. The trip computer, however, didn&rsquo;t complete the set.</p>
+<p>I began thinking, could I determine future combinations that would satisfy the 0-9 game from a given starting position? Below I discuss my thoughts along the way.</p>
+<p>You can find the resulting script in my <a href="https://github.com/gh-jamesmontgomery/digit-detection/tree/master/miles">GitHub repository</a>.</p>
+<h2 id="starting-with-the-odometer">Starting with the odometer</h2>
+<p>A core capability to completing the task would be to determine which digits are present in a number. This motivation was the driving force for my <a href="https://ja.mesmontgomery.co.uk/2019/10/detecting-digits-with-powershell/">previous post</a>.</p>
+<p>Beginning with the odometer 1-6 game, are the numbers 1-6 present?</p>
+<p>For example:</p>
+<p>123456 (yes)<br>
+123457 (no)<br>
+123458 (no)<br>
+&hellip; (noes)<br>
+123465 (yes)<br>
+&hellip; (noes)<br>
+123546 (yes)</p>
+<p>In my previous post, I reviewed regex as an option via <code>-match</code> to determine if a range of digits was present in a number. I omitted a more complex example which I illustrate here. Inspired by this <a href="https://stackoverflow.com/questions/13546187/how-to-match-any-combination-of-letters-using-regex">Stackoverflow post</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>$theseUniqueDigits = <span style="color:#ae81ff">654211</span>
+</span></span><span style="display:flex;"><span>$match1 = <span style="color:#e6db74">&#34;\b(?:([123456])(?![123456789]*\1))+\b&#34;</span>
+</span></span><span style="display:flex;"><span>$theseUniqueDigits <span style="color:#f92672">-match</span> $match1
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting False output</span>
+</span></span><span style="display:flex;"><span>$theseUniqueDigits = <span style="color:#ae81ff">654231</span>
+</span></span><span style="display:flex;"><span>$theseUniqueDigits <span style="color:#f92672">-match</span> $match1
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Expecting True output</span>
+</span></span></code></pre></div><p>As I sought to expand my example to process any number, I noticed my regex pattern change based on number length. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>-<span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>\b(?<span style="color:#960050;background-color:#1e0010">:</span>([<span style="color:#ae81ff">123456</span>])(?![<span style="color:#ae81ff">123456789</span>]*\<span style="color:#ae81ff">1</span>))+\b
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>-<span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>\b(?<span style="color:#960050;background-color:#1e0010">:</span>([<span style="color:#ae81ff">123456789</span>])(?![<span style="color:#ae81ff">123456789</span>]*\<span style="color:#ae81ff">1</span>))+\b
+</span></span></code></pre></div><p>Regex101 <a href="https://regex101.com/r/gBQcxf/1">interactive example (1-6 range)</a> <a href="https://regex101.com/r/aMhDrO/3/">and (1-9 range)</a></p>
+<p>I generated the required regex by evaluating the candidate number&rsquo;s length:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>$lookingForInts = <span style="color:#ae81ff">1</span>.. $thisLength
+</span></span><span style="display:flex;"><span>$matchFor = $lookingForInts -join <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>$match1 = <span style="color:#e6db74">&#34;\b(?:([</span>$matchFor<span style="color:#e6db74">])(?![123456789]*\1))+\b&#34;</span>
+</span></span></code></pre></div><p>Generating regex requires some care. The variable in the regex generation appears trivial enough that verification seems superfluous. I elected to validate it anyway with this <a href="https://regex101.com/r/YveGIp/1">approach</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>$confirmRegex = <span style="color:#e6db74">&#34;\\b\(\?\:\(\[(1|12|123|1234|12345|123456|1234567|12345678|123456789)\]\)\(\?\!\[123456789\]\*\\1\)\)\+\\b&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>($evaluateRegex){
+</span></span><span style="display:flex;"><span>        write-debug <span style="color:#e6db74">&#34;Confirming regex: </span>$($match1 <span style="color:#f92672">-match</span> $confirmRegex)<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>I wrote a validation function using another approach in case there was any doubt in number processing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#66d9ef">Function</span> testNumber
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">param</span>([<span style="color:#66d9ef">int64</span>]$lookingIn, $lookingFor)
+</span></span><span style="display:flex;"><span>    Write-Debug <span style="color:#e6db74">&#34;Processing </span>$lookingIn<span style="color:#e6db74"> for digits </span>$lookingFor<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    $foundInts = $true
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Initialise found to true and set to false if we cannot locate a digit</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $lookingFor | ForEach-Object {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($lookingIn.tostring().Contains([<span style="color:#66d9ef">string</span>]$_))
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Write-Debug <span style="color:#e6db74">&#34;[string contains]</span>$_<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            Write-Debug <span style="color:#e6db74">&#34;[string does not contain]</span>$_<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            $foundInts = $false
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> $foundInts
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="including--the-trip-computer">Including  the trip computer</h2>
+<p>To keep things simple, I have assumed the trip computer value is a three-digit number - omitting the tenths digit ordinarily present.</p>
+<p>Therefore, we could have the following examples:</p>
+<p>Odometer = 545, Trip= 122<br>
+Odometer = 546, Trip= 123<br>
+Odometer = 547, Trip= 124</p>
+<p>The second example has a complete set of 1-6 when combining the digits of the two numbers.</p>
+<p>We achieve this by multiplying the odometer reading by one thousand and adding the trip value.</p>
+<p>For example:</p>
+<p>Odometer = 545, Trip= 122, Combined=545000+122=545122<br>
+Odometer = 546, Trip= 123, Combined=546000+123=546123<br>
+Odometer = 547, Trip= 124. Combined=547000+124=547125</p>
+<p>We can treat the combined number with the same logic as the odometer approach. Which seemed fine until I explored number sets at the higher end of the scale.</p>
+<p>If you recall, the car had passed 123k miles. Therefore the combined digits of the odometer(6) and trip computer(3) produce a number length of 9.</p>
+<p>I added another zero onto the odometer range 1-1.1 million miles. This mileage was somewhat unrealistic in terms of the car&rsquo;s range capability but a compelling edge case.</p>
+<p>It was at this point that my regex approach broke down. I tried extending it to consider multiples of digits, but I didn&rsquo;t get very far.</p>
+<p>What does a complete number set look like at ten digits long?</p>
+<p>For the sake of putting a line in the sand, and producing an edge case, I elected to omit zero as a digit of interest. The first numbers of length ten evaluate as follows:</p>
+<p>1234567890 (no)<br>
+1234567891 (yes)<br>
+1234567892 (yes)<br>
+&hellip; (yeses)<br>
+1234567899 (yes)<br>
+1234567900 (no)</p>
+<p>I had some inspiration from this <a href="https://www.reddit.com/r/PowerShell/comments/dremwk/detecting_digits_in_a_number/">Reddit thread</a>, which gave me feedback on the previous digit detection post. What if instead of changing the validation approach, I could clean the data by reviewing unique digits?</p>
+<p>The first numbers of length ten evaluate as follows in this approach:</p>
+<p>1234567890 &ndash;&gt; 1234567890 (no)<br>
+1234567891 &ndash;&gt; 123456789 (yes)<br>
+1234567892 &ndash;&gt; 123456789 (yes)<br>
+&hellip; (yeses)<br>
+1234567899 &ndash;&gt; 123456789 (yes)<br>
+1234567900 &ndash;&gt; 123456790 (no)</p>
+<p>We achieve this as follows:</p>
+<ul>
+<li>Convert the combined number into a String object. We&rsquo;ll call this our source value.</li>
+<li>Convert the string into an array of characters.</li>
+<li>We pass the result into select-object, to accept unique objects.</li>
+<li>Lastly, we join the characters back into a String object with -join. We&rsquo;ll call this our result value.</li>
+</ul>
+<p>By examining the length of the result, as compared to the source, we can reach conclusions that save us from digit detection in every case.</p>
+<p>If the length of the result matches the source, all digits are unique. We evaluate.</p>
+<p>For example:</p>
+<p>12357 (5 digits) &ndash;&gt; 12357 (5 digits, evaluate for the digits 1-5)<br>
+54321  (5 digits) &ndash;&gt; 54321 (5 digits, evaluate for the digits 1-5)</p>
+<p>If the length of the result is less than that of the source, we have some repetition. If the number of source digits is less than 9, we do not evaluate.</p>
+<p>For example:</p>
+<p>123357 (5 digits) &ndash;&gt; 12357 (4 digits, do not evaluate)</p>
+<p>However, where the number of source digits is nine or more, we evaluate.</p>
+<p>For example:</p>
+<p>123456708 (9 digits) &ndash;&gt; 123456708 (9 digits, evaluate this number for digits 1-9)<br>
+123987456 (9 digits) &ndash;&gt; 123987456 (9 digits, evaluate this number for digits 1-9)<br>
+1234567900 (10 digits) &ndash;&gt; 123456790 (9 digits, evaluate this number for the digits 1-9)</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>It feels good to solve a purely academic problem at times. I&rsquo;ve limited solving this involving only two data inputs, and a randomly selected initial trip value.</p>
+<p>The trip computer value rolls over at 999 in my model, but what if we reset it to 0 deliberately. When would we do that to maximise our collection of number combinations in the future?</p>
+<p>What other data could we consider to complete this number game? The clock, the temperature, GPS coordinates, our current programmed route?</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><a href="https://openmoji.org/library/#search=car&amp;emoji=1F697">OpenMoji for the car image</a></li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/scripting">📂scripting</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/powershell"> 🏷️powershell</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/10/detecting-digits-with-powershell/"
+                class="button big previous">Detecting Digits with PowerShell</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/"
+                class="button big next">Backup of Cloudflare DNS to AWS DynamoDB</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

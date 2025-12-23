@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on James Montgomery</title>
+    <link>https://ja.mesmontgomery.co.uk/tags/git/</link>
+    <description>Recent content in Git on James Montgomery</description>
+    <generator>Hugo</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 21 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ja.mesmontgomery.co.uk/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrating site to AWS</title>
+      <link>https://ja.mesmontgomery.co.uk/2020/09/migrating-site-to-aws/</link>
+      <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2020/09/migrating-site-to-aws/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;Some time ago, I decided to multi-cloud my site. I&amp;rsquo;ve recently decided to revert to a single cloud hosting provider. I&amp;rsquo;m taking the opportunity to experience Amplify static hosting for this site.&lt;/p&gt;&#xA;&lt;h2 id=&#34;challenges-with-the-previous-configuration&#34;&gt;Challenges with the previous configuration&lt;/h2&gt;&#xA;&lt;p&gt;Multiple hosting locations meant multiple build processes.&lt;/p&gt;&#xA;&#xA;&#xA;&#xA;    &#xA;&#xA;    &#xA;    &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;  &#xA;    &#xA;  &#xA;&#xA;&#xA;    &#xA;&#xA;    &lt;div class=&#34;box alt&#34;&gt;&#xA;        &lt;div class=&#34;row uniform&#34;&gt;&#xA;        &#xA;        &#xA;        &#xA;            &#xA;                &lt;div class=&#34;1u&#34;&gt;&#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                    &#xA;                    &lt;span class=&#34;image fit&#34;&gt;&#xA;                &#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                        &lt;img src=&#39;https://ja.mesmontgomery.co.uk/img/2020/09/duelstack.jpeg&#39;&#xA;                            alt=&#34;Duel stack overview&#34;&gt;&#xA;                    &lt;/span&gt;&lt;/div&gt;&#xA;                &#xA;                &#xA;            &#xA;            &#xA;        &#xA;        &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;&#xA;&lt;p&gt;In effect, the site was built, deployed (to Firebase) then rebuilt and redeployed (to AWS). Admittedly, the latter was rarely an overhead as the AWS Amplify CI/CD workflow was triggered upon commit to the master branch on CodeCommit.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Google Firebase with a side of AWS Amplify</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/</link>
+      <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;ll discuss a rabbit hole that I went down with only a thin excuse as the reason. And here it is, a Reddit reply to a shared post from this site:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;I can&amp;rsquo;t view on my desktop because your site is blocked on my network. Sorry&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;The rabbit hole in question? Dual stacking &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/this-site/&#34;&gt;this site&lt;/a&gt; across Google and Amazon infrastructure.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introducing-aws-amplify&#34;&gt;Introducing AWS Amplify&lt;/h2&gt;&#xA;&lt;p&gt;I first read about Amplify in &lt;a href=&#34;https://aws.amazon.com/blogs/mobile/aws-mobile-gets-amplified/&#34;&gt;this blog post&lt;/a&gt;. It discussed the launch of Amplify Console as an evolution of the framework that proceeded it into a service offering. Described as:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

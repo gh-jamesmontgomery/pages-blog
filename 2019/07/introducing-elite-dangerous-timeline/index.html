@@ -1,0 +1,1039 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Introducing Elite Dangerous Timeline",
+        "headline" : "Introducing Elite Dangerous Timeline",
+        "description" : "A vis.js visual of game events with a DynamoDB backend and Flask API.",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-07-05",
+        "dateModified" : "2019-07-05",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/07\/introducing-elite-dangerous-timeline\/",
+        "wordCount" : "658",
+        "keywords" : [ "Python","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Introducing Elite Dangerous Timeline</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="A vis.js visual of game events with a DynamoDB backend and Flask API.">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Introducing Elite Dangerous Timeline">
+  <meta name="twitter:description" content="A vis.js visual of game events with a DynamoDB backend and Flask API.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/07/introducing-elite-dangerous-timeline/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Introducing Elite Dangerous Timeline">
+  <meta property="og:description" content="A vis.js visual of game events with a DynamoDB backend and Flask API.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-07-05T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-07-05T00:00:00+00:00">
+    <meta property="article:tag" content="Python">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/edtimeline-media.png">
+        
+
+        
+  <meta itemprop="name" content="Introducing Elite Dangerous Timeline">
+  <meta itemprop="description" content="A vis.js visual of game events with a DynamoDB backend and Flask API.">
+  <meta itemprop="datePublished" content="2019-07-05T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-07-05T00:00:00+00:00">
+  <meta itemprop="wordCount" content="658">
+  <meta itemprop="keywords" content="Python">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/07/introducing-elite-dangerous-timeline/">Introducing Elite Dangerous Timeline</a></h1>
+            
+        
+        
+            <p>A vis.js visual of game events with a DynamoDB backend and Flask API.</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-07-05'>
+            July 5, 2019</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>4 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/07/introducing-elite-dangerous-timeline/" class="image featured" aria-label="Elite Dangerous timeline">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/edtimeline-top.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>I created a timeline visual from Elite Dangerous in-game events. Why? On the one hand, to further my Python learning and explore AWS DynamoDB. On the other hand, because I ultimately would like to provide some context to me in the game which is not present natively. By focusing on visualising a subset of the available events, I gain a foothold in parsing the game data into a database and putting an API in front of it.</p>
+<p>The <a href="https://ja.mesmontgomery.co.uk/projects/elite-dangerous-timeline/">project page</a> provides an overview while this post covers this part of the story.</p>
+<h2 id="the-outcome">The outcome</h2>
+<p>Here is what the current application looks like:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/07/ed-timeline-overview.png'
+                            alt="How the application looks.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>And an overview video:</p>
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/uEoFFGlnAKE?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<h2 id="getting-to-here">Getting to here</h2>
+<h3 id="backend---dynamodb">Backend - DynamoDB</h3>
+<p>I elected to use DynamoDB Local (Downloadable Version) as this was my first NoSQL project. The consensus at the time of research was to go with a single table design for almost anything. The current <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-general-nosql-design.html">best practice page</a> maintains this:</p>
+<blockquote>
+<p>For DynamoDB, by contrast, you shouldn&rsquo;t start designing your schema until you know the questions it will need to answer. Understanding the business problems and the application use cases upfront is essential.</p>
+</blockquote>
+<p>Also:</p>
+<blockquote>
+<p>You should maintain as few tables as possible in a DynamoDB application. Most well-designed applications require only one table.</p>
+</blockquote>
+<h4 id="access-patterns">Access patterns</h4>
+<p>The following questions were the intent of the application to answer:</p>
+<ul>
+<li>Who has interdicted me?</li>
+<li>Who has killed me?</li>
+</ul>
+<h4 id="source-data">Source data</h4>
+<p>Both of these questions conveniently match to natively logged data in the <a href="http://hosting.zaonce.net/community/journal/v18/Journal_Manual_v18.pdf">game journal files</a>.</p>
+<p>Interdiction event:</p>
+<blockquote>
+<p>{ &ldquo;timestamp&rdquo;:&ldquo;2017-11-05T18:18:16Z&rdquo;, &ldquo;event&rdquo;:&ldquo;Interdicted&rdquo;, &ldquo;Submitted&rdquo;:true, &ldquo;Interdictor&rdquo;:&ldquo;Harald Irongut&rdquo;, &ldquo;IsPlayer&rdquo;:false, &ldquo;Faction&rdquo;:&ldquo;The Ant Hill Mob&rdquo; }</p>
+</blockquote>
+<p>Killed event (solo and by a group of players):</p>
+<blockquote>
+<p>{ &ldquo;timestamp&rdquo;:&ldquo;2018-04-23T07:30:27Z&rdquo;, &ldquo;event&rdquo;:&ldquo;Died&rdquo;, &ldquo;KillerName&rdquo;:&ldquo;Cmdr Flight Assist&rdquo;, &ldquo;KillerShip&rdquo;:&ldquo;diamondback&rdquo;, &ldquo;KillerRank&rdquo;:&ldquo;Dangerous&rdquo; }<br>
+{ &ldquo;timestamp&rdquo;:&ldquo;2018-06-30T14:19:02Z&rdquo;, &ldquo;event&rdquo;:&ldquo;Died&rdquo;, &ldquo;Killers&rdquo;:[ { &ldquo;Name&rdquo;:&ldquo;Cmdr deZpe [ROA]&rdquo;, &ldquo;Ship&rdquo;:&ldquo;ferdelance&rdquo;, &ldquo;Rank&rdquo;:&ldquo;Elite&rdquo; }, { &ldquo;Name&rdquo;:&ldquo;Cmdr 1st.BoneS [RoA]&rdquo;, &ldquo;Ship&rdquo;:&ldquo;ferdelance&rdquo;, &ldquo;Rank&rdquo;:&ldquo;Deadly&rdquo; } ] }</p>
+</blockquote>
+<p>I created a load script to parse through all my ED log files (998, ~300MB) covering November 2017 through to June 2019.</p>
+<h4 id="table-and-schema">Table and schema</h4>
+<p>I created a single table with the following schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">KeySchema</span><span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttributeName&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;event&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;KeyType&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;HASH&#39;</span>  <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Partition</span> <span style="color:#a6e22e">key</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttributeName&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;occurred&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;KeyType&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RANGE&#39;</span>  <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">Sort</span> <span style="color:#a6e22e">key</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">AttributeDefinitions</span><span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttributeName&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;event&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttributeType&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;S&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttributeName&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;occurred&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttributeType&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;S&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span></code></pre></div><h3 id="middleware---rest-api-endpoints">Middleware - REST API endpoints</h3>
+<p>Python was the language of choice for this project, and research led me into Flask vs Django territory for the production of python based REST APIs.</p>
+<p>Flask over Django (or vice versa) appeared to be a subject of much discussion online. As someone new to this area, I picked Flask on the back of documentation that I thought was easier to digest.</p>
+<p>It seemed natural to map REST endpoints to the expected data questions. Therefore, I created the following API resource paths:</p>
+<ul>
+<li>/interdictions/</li>
+<li>/deaths/</li>
+</ul>
+<p>In both cases, I support a parameter <code>isPlayer</code> which influences the resulting table query.</p>
+<p>The boto3 library interacts with the DynamoDB backend with the constructed query. The endpoint then parses the results and produces a JSON response for the frontend to manage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>jsonItem <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;id&#39;</span> : number,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;start&#39;</span> : occurred,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;content&#39;</span> : interdictor,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;isPlayer&#39;</span> : isPlayer,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;group&#39;</span> : <span style="color:#e6db74">&#39;0&#39;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span></code></pre></div><h3 id="frontend---single-web-page-with-visjs">Frontend - Single web page with vis.js</h3>
+<p>A JavaScript call to the above endpoints creates a JSON vis.js dataset. The timeline module provides a visual. Three groups match the expected result:</p>
+<ul>
+<li>Interdiction by</li>
+<li>Killed by solo</li>
+<li>Killed by wing members</li>
+</ul>
+<p>I have created a working prototype of the Timeline module with my data. You can see a variety of <a href="https://visjs.org/timeline_examples.html">examples on the vis.js website</a> that illustrate the range of possible functionality.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Getting to this point felt like a milestone moment. There&rsquo;s lots more I could do - ultimately migrating to a serverless AWS application would be the end goal.</p>
+<p>Visually representing the data is the first step to achieving context. Ideally, I&rsquo;d like to drive the query with in-game interactions for near-time information (you&rsquo;ve met this player before, prior combat results).</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><a href="https://www.trek10.com/blog/dynamodb-single-table-relational-modeling/">Trek10.com&rsquo;s post on From relational DB to single DynamoDB table: a step-by-step exploration</a>.</li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/visualisation">📂Visualisation</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/aws">📂AWS</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/python"> 🏷️Python</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/06/order-order/"
+                class="button big previous">Order, order!</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/09/updating-site-privacy-settings/"
+                class="button big next">Updating site privacy settings</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

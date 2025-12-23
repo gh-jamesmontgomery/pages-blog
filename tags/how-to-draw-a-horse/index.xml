@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>How to Draw a Horse on James Montgomery</title>
+    <link>https://ja.mesmontgomery.co.uk/tags/how-to-draw-a-horse/</link>
+    <description>Recent content in How to Draw a Horse on James Montgomery</description>
+    <generator>Hugo</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 10 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ja.mesmontgomery.co.uk/tags/how-to-draw-a-horse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to base64 decode on Windows 10 without base64.exe</title>
+      <link>https://ja.mesmontgomery.co.uk/2019/01/how-to-base64-decode-on-windows-10-without-base64.exe/</link>
+      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/2019/01/how-to-base64-decode-on-windows-10-without-base64.exe/</guid>
+      <description>&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;p&gt;You can call certutil from PowerShell to produce the required file.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;There is a moment in life where you get stuck in a quick start guide - we&amp;rsquo;ve all been there. At the start of my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/&#34;&gt;Google Cloud text-to-speech project&lt;/a&gt; it arrived quickly and unexpectedly at &lt;a href=&#34;https://cloud.google.com/text-to-speech/docs/base64-decoding&#34;&gt;step two of this two-step quick start guide&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;I had successfully returned my first base64 encoded speech audio, onward to the last step:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&amp;ldquo;Decode the source text file using the Base64.exe tool:&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

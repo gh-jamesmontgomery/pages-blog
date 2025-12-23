@@ -1,0 +1,1176 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Producing live visuals from a PowerShell REST API",
+        "headline" : "Producing live visuals from a PowerShell REST API",
+        "description" : "Using vis.js and PowerShell Universal Dashboard",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-05-17",
+        "dateModified" : "2019-05-17",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/05\/producing-live-visuals-from-a-powershell-rest-api\/",
+        "wordCount" : "599",
+        "keywords" : [ "PowerShell","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Producing live visuals from a PowerShell REST API</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="Using vis.js and PowerShell Universal Dashboard">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Producing live visuals from a PowerShell REST API">
+  <meta name="twitter:description" content="Using vis.js and PowerShell Universal Dashboard">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/05/producing-live-visuals-from-a-powershell-rest-api/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Producing live visuals from a PowerShell REST API">
+  <meta property="og:description" content="Using vis.js and PowerShell Universal Dashboard">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-05-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-05-17T00:00:00+00:00">
+    <meta property="article:tag" content="PowerShell">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/ps-visjs-media.png">
+        
+
+        
+  <meta itemprop="name" content="Producing live visuals from a PowerShell REST API">
+  <meta itemprop="description" content="Using vis.js and PowerShell Universal Dashboard">
+  <meta itemprop="datePublished" content="2019-05-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-05-17T00:00:00+00:00">
+  <meta itemprop="wordCount" content="599">
+  <meta itemprop="keywords" content="PowerShell">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/05/producing-live-visuals-from-a-powershell-rest-api/">Producing live visuals from a PowerShell REST API</a></h1>
+            
+        
+        
+            <p>Using vis.js and PowerShell Universal Dashboard</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-05-17'>
+            May 17, 2019</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>3 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/05/producing-live-visuals-from-a-powershell-rest-api/" class="image featured" aria-label="Producing live visuals from a PowerShell REST API">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/ps-visjs-top.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>In this post, I&rsquo;d like to share an example of bringing to life the data returned by an API. One PowerShell example takes the output of <code>Get-NetTCPConnection</code> and <code>Get-Process</code> to create a JSON representation of process IDs and their network connections.</p>
+<p>Universal Dashboard provides the means to expose this via REST API. Lastly, the <code>vis.js</code> network module creates a visual representation of this data.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/05/visjs-overview.png'
+                            alt="IPv4 and IPv6 connections to a remote address on port 443 graphed">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>Here is an example video:</p>
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/Ht0Wtx1dXVo?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<p>You can find the code for this post in this <a href="https://github.com/gh-jamesmontgomery/vis.js-ud-tcp">GitHub repository</a>.</p>
+<h2 id="motivation">Motivation</h2>
+<p>As part of an as-yet undocumented project, I wanted to create a visual based on REST API served data. I elected to work with a REST implementation I had an experience of in the form of PowerShell Universal Dashboard. This decision would allow me to focus on learning the visualisation library.</p>
+<h2 id="tcp-connections-to-port-443">TCP connections to port 443</h2>
+<p>I decided to start with visualising all TCP connections in which the remote port was 443. The PowerShell for this is compact:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>$Endpoint = New-UDEndpoint -Url <span style="color:#e6db74">&#34;/tcp-443&#34;</span> -Method <span style="color:#e6db74">&#34;GET&#34;</span> -Endpoint {
+</span></span><span style="display:flex;"><span>    Get-NetTCPConnection | Where-Object{$_.RemotePort <span style="color:#f92672">-eq</span> <span style="color:#ae81ff">443</span>} | Select-Object RemoteAddress | ConvertTo-Json
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Start-UDRestApi -Port <span style="color:#ae81ff">10000</span> -Endpoint @(
+</span></span><span style="display:flex;"><span>   $Endpoint
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>The HTML/JavaScript you can locate in <code>REST-visjs-TCP-443.html</code> file within the GitHub repository.</p>
+<p>As part of API response processing I test for IPv6 and create edge relationships to the IPv4 or IPv6 nodes appropriately so we can distinguish between the two:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/05/visjs-443-v4-v6.png'
+                            alt="IPv4 and IPv6 connections to a remote address on port 443 graphed">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h2 id="tcp-connections-with-process-name-and-process-id">TCP connections with process name and process ID</h2>
+<p>The intention was to work with the following PowerShell output:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/05/visjs-ps-processes-1.png'
+                            alt="IPv4 and IPv6 connections to a remote address on port 443 graphed">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>And have it form this graph:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/05/visjs-processes-1.png'
+                            alt="IPv4 and IPv6 connections to a remote address on port 443 graphed">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h3 id="graph-structure">Graph structure</h3>
+<p>I perhaps didn&rsquo;t have that same graph in mind when I started. However, I did want to represent process names, process IDs, remote IPs and remote ports in a meaningful way.</p>
+<p>When I settled on a two-node depth (process name and remote IP), creating the data structure to support this was greatly simplified. I elected to indicate the source PID and destination port on the edge relationship.</p>
+<p>An upside to this approach is that we can see whenever multiple processes share services on the back of the same IP addresses. Additionally, the remote IP address nodes indicate the sum of connections to this address in brackets.</p>
+<h3 id="data-structure">Data structure</h3>
+<h4 id="powershell">PowerShell</h4>
+<p>The PowerShell data structure is comprised of hash tables and an array as follows:</p>
+<ul>
+<li>Top-level hash table with keys &ldquo;Processes&rdquo; and &ldquo;RemoteAddresses&rdquo;.</li>
+<li>&ldquo;RemoteAddresses&rdquo; is a hash table which records unique IPs and a count of connections using them as their values.</li>
+<li>&ldquo;Processes&rdquo; is a hash table of process names.</li>
+<li>A process name is a hash table of process IDs.</li>
+<li>The process ID yields an array of hash tables which describe the remote connection.</li>
+</ul>
+<h4 id="json-output">JSON output</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Processes&#34;</span><span style="color:#f92672">:</span>  {<span style="color:#e6db74">&#34;Video.UI&#34;</span><span style="color:#f92672">:</span>  {
+</span></span><span style="display:flex;"><span>                                    <span style="color:#e6db74">&#34;9432&#34;</span><span style="color:#f92672">:</span>  [
+</span></span><span style="display:flex;"><span>                                                {
+</span></span><span style="display:flex;"><span>                                                    <span style="color:#e6db74">&#34;remoteIP&#34;</span><span style="color:#f92672">:</span>  <span style="color:#e6db74">&#34;2.20.92.18&#34;</span>,
+</span></span><span style="display:flex;"><span>                                                    <span style="color:#e6db74">&#34;localPort&#34;</span><span style="color:#f92672">:</span>  <span style="color:#e6db74">&#34;49730&#34;</span>,
+</span></span><span style="display:flex;"><span>                                                    <span style="color:#e6db74">&#34;remotePort&#34;</span><span style="color:#f92672">:</span>  <span style="color:#e6db74">&#34;443&#34;</span>
+</span></span><span style="display:flex;"><span>                                                }
+</span></span><span style="display:flex;"><span>                                            ]
+</span></span><span style="display:flex;"><span>                                   },
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#34;Steam&#34;</span><span style="color:#f92672">:</span>  {
+</span></span><span style="display:flex;"><span>                                    <span style="color:#e6db74">&#34;12476&#34;</span><span style="color:#f92672">:</span>  [
+</span></span><span style="display:flex;"><span>                                                  {
+</span></span><span style="display:flex;"><span>                                                    <span style="color:#e6db74">&#34;remoteIP&#34;</span><span style="color:#f92672">:</span>  <span style="color:#e6db74">&#34;162.254.196.68&#34;</span>,
+</span></span><span style="display:flex;"><span>                                                    <span style="color:#e6db74">&#34;localPort&#34;</span><span style="color:#f92672">:</span>  <span style="color:#e6db74">&#34;49798&#34;</span>,
+</span></span><span style="display:flex;"><span>                                                    <span style="color:#e6db74">&#34;remotePort&#34;</span><span style="color:#f92672">:</span>  <span style="color:#e6db74">&#34;27021&#34;</span>
+</span></span><span style="display:flex;"><span>                                                  }
+</span></span><span style="display:flex;"><span>                                              ]
+</span></span><span style="display:flex;"><span>                                }
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;RemoteAddresses&#34;</span><span style="color:#f92672">:</span>  {<span style="color:#e6db74">&#34;2.20.92.18&#34;</span><span style="color:#f92672">:</span>  <span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#34;162.254.196.68&#34;</span><span style="color:#f92672">:</span>  <span style="color:#ae81ff">1</span>,}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>When I began, this was a stepping stone objective to another learning outcome. I had taken the very basic of examples and shelved the output. The second example I had mocked up but didn&rsquo;t choose to finish, and I had learned enough to move on to the intended use of vis.js in another project.</p>
+<p>Recently I spent some time picking up where I left off to complete the example with process names and PIDs.</p>
+<p>I was saddened to learn that the vis.js project status is now <a href="https://github.com/almende/vis/issues/4259">end-of-life</a>. Hopefully, the efforts to create separate projects from it will succeed.</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li><a href="http://etn.io/">Elite Trade Net for showing me the first live data-driven graph to get me thinking</a></li>
+<li><a href="https://powershellexplained.com/2018-10-15-Powershell-arrays-Everything-you-wanted-to-know/#array-addition">Kevin Marquette&rsquo;s Everything you need to know about arrays</a></li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/visualisation">📂Visualisation</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/powershell"> 🏷️PowerShell</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/04/visualising-your-dns-cache-with-psgraph/"
+                class="button big previous">Visualising your DNS cache with PSGraph</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/06/order-order/"
+                class="button big next">Order, order!</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

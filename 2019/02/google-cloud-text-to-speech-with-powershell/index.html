@@ -1,0 +1,1262 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Google Cloud Text-to-Speech with PowerShell",
+        "headline" : "Google Cloud Text-to-Speech with PowerShell",
+        "description" : "A guide for using PowerShell with the Google Cloud Text-to-Speech API. ",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-02-10",
+        "dateModified" : "2019-02-10",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/02\/google-cloud-text-to-speech-with-powershell\/",
+        "wordCount" : "1177",
+        "keywords" : [ "Tutorial","PowerShell","Text-to-Speech","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Google Cloud Text-to-Speech with PowerShell</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+        
+            <meta name="description" content="A guide for using PowerShell with the Google Cloud Text-to-Speech API. ">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Google Cloud Text-to-Speech with PowerShell">
+  <meta name="twitter:description" content="A guide for using PowerShell with the Google Cloud Text-to-Speech API.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Google Cloud Text-to-Speech with PowerShell">
+  <meta property="og:description" content="A guide for using PowerShell with the Google Cloud Text-to-Speech API.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-02-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-02-10T00:00:00+00:00">
+    <meta property="article:tag" content="Tutorial">
+    <meta property="article:tag" content="PowerShell">
+    <meta property="article:tag" content="Text-to-Speech">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/GCPplusPS_45d6277f938f57657d53fa5a35a73ef6.png">
+        
+
+        
+  <meta itemprop="name" content="Google Cloud Text-to-Speech with PowerShell">
+  <meta itemprop="description" content="A guide for using PowerShell with the Google Cloud Text-to-Speech API.">
+  <meta itemprop="datePublished" content="2019-02-10T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-02-10T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1177">
+  <meta itemprop="keywords" content="Tutorial,PowerShell,Text-to-Speech">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/">Google Cloud Text-to-Speech with PowerShell</a></h1>
+            
+        
+        
+            <p>A guide for using PowerShell with the Google Cloud Text-to-Speech API. </p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-02-10'>
+            February 10, 2019</time>
+        <span class="author"></span>
+        
+            <p>6 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/" class="image featured" aria-label="Google Cloud Text-to-Speech with PowerShell">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/GCPplusPS_45d6277f938f57657d53fa5a35a73ef6.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>In this post, I&rsquo;ll walk through the basics of using PowerShell to interact with the Google Cloud Text-to-Speech API. Partly a documentation exercise and somewhat a guide I&rsquo;d like to have been able to read when I started on my <a href="https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/">Elite Dangerous Google Cloud Text-to-Speech project</a>.</p>
+<p>As such, we&rsquo;ll start with a basic script to produce an audio file and explain how that works. Later I&rsquo;ll walk through some parameters of interest to affect the response. Lastly, I&rsquo;ll introduce how we can use SSML for a variation in response.</p>
+<h2 id="the-bare-minimum">The bare minimum</h2>
+<p>This post assumes you&rsquo;ve followed the steps in this <a href="https://cloud.google.com/text-to-speech/docs/quickstart-protocol">Google article</a> to correctly set up a project and configure the Cloud SDK on your machine.</p>
+<p>To get started with PowerShell, let&rsquo;s look at the minimum script that would produce an audio file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Common auth, URL and headers</span>
+</span></span><span style="display:flex;"><span>$gauth = gcloud auth print-access-token
+</span></span><span style="display:flex;"><span>$headers = @{}
+</span></span><span style="display:flex;"><span>$headers.add(<span style="color:#e6db74">&#34;Authorization&#34;</span>, <span style="color:#e6db74">&#34;Bearer </span>$gauth<span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>$target = <span style="color:#e6db74">&#34;https://texttospeech.googleapis.com/v1/text:synthesize&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Variables</span>
+</span></span><span style="display:flex;"><span>$text = <span style="color:#e6db74">&#34;Hey there! You&#39;re using plain text for this synthesis&#34;</span>
+</span></span><span style="display:flex;"><span>$languageCode = <span style="color:#e6db74">&#39;en&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$body = @{
+</span></span><span style="display:flex;"><span>    input = @{
+</span></span><span style="display:flex;"><span>        text = $text
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    voice = @{
+</span></span><span style="display:flex;"><span>        languageCode = $languageCode
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    audioConfig = @{
+</span></span><span style="display:flex;"><span>        audioEncoding = <span style="color:#e6db74">&#39;MP3&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Build JSON body for the request</span>
+</span></span><span style="display:flex;"><span>$jbody = ConvertTo-Json ($body)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Try conversion request</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>{
+</span></span><span style="display:flex;"><span>    $response = Invoke-RestMethod -ContentType <span style="color:#e6db74">&#39;application/json&#39;</span> -headers $headers -Uri $target -Method Post -body $jbody
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Extract the base64 encoded response</span>
+</span></span><span style="display:flex;"><span>    $base64Audio = $response.audioContent
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#Produce output file</span>
+</span></span><span style="display:flex;"><span>    $base64Audio | Out-File -FilePath <span style="color:#e6db74">&#34;./google.txt&#34;</span> -Encoding ascii -Force
+</span></span><span style="display:flex;"><span>    $convertedFileName = <span style="color:#e6db74">&#39;GTTS-Plain-{0}.mpga&#39;</span> <span style="color:#f92672">-f</span> (get-date <span style="color:#f92672">-f</span> yyyy-MM-dd-hh-mm-ss)
+</span></span><span style="display:flex;"><span>    certutil -decode google.txt $convertedFileName
+</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">catch</span> {
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;StatusCode:&#34;</span> $_.Exception.Response.StatusCode.value__
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;StatusDescription:&#34;</span> $_.Exception.Response.StatusDescription
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="breaking-it-down">Breaking it down</h2>
+<p>Most of the code is structural (build up authentication, target URL and file output). The <code>#Variables</code> section of the code will be the focus of our changes. When we examine the <a href="https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize">requirements documentation for a request</a> - we need only to offer the following  information:</p>
+<ul>
+<li>Text <em>or</em> SSML field for synthesis input</li>
+<li>Language code</li>
+<li>Audio encoding</li>
+</ul>
+<p>You might notice I&rsquo;ve picked <code>en</code> as the language code. Using this invokes a specific behaviour:</p>
+<blockquote>
+<p>Note that the TTS service may choose a voice with a slightly different language code than the one selected; it may substitute a different region (e.g. using en-US rather than en-CA if there isn&rsquo;t a Canadian voice available), or even a different language, e.g. using &ldquo;nb&rdquo; (Norwegian Bokmal) instead of &ldquo;no&rdquo; (Norwegian)&quot;.</p>
+</blockquote>
+<p>Therefore using <code>en</code> we can only say that we&rsquo;ll get an English result back - without certainty on which region is selected. We can use <code>en-GB</code> for a preferred British voice conversion - with the understanding that an alternative region voice could be selected perhaps due to capacity within the system. Here are some plain text examples with only the region specified:</p>
+<!-- markdownlint-disable MD033 -->
+<table style="width:100%">
+  <tr>
+    <th>languageCode</th>
+    <th>Audio</th>
+  </tr>
+  <tr>
+    <td>EN-GB</td>
+    <td><audio controls>
+    <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-EN-GB-2019-02-10-03-09-04.mpga" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </td>
+  </tr>
+  <tr>
+    <td>EN-US</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-EN-US-2019-02-10-03-09-46.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+</table>
+<!-- markdownlint-enable MD033 -->
+<h2 id="specifying-gender">Specifying gender</h2>
+<p>We can request a preferred gender for the voice. If it is not available rather than failing the request another is selected. The relevant Powershell code is changed as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>$body = @{
+</span></span><span style="display:flex;"><span>    input = @{
+</span></span><span style="display:flex;"><span>        text = $text
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    voice = @{
+</span></span><span style="display:flex;"><span>        languageCode = $languageCode
+</span></span><span style="display:flex;"><span>        ssmlGender = <span style="color:#e6db74">&#39;FEMALE&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    audioConfig = @{
+</span></span><span style="display:flex;"><span>        audioEncoding = <span style="color:#e6db74">&#39;MP3&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><!-- markdownlint-disable MD033 -->
+<table style="width:100%">
+  <tr>
+    <th>languageCode</th>
+    <th>ssmlGender</th>
+    <th>Audio</th>
+  </tr>
+  <tr>
+    <td>EN-GB</td>
+    <td>female</td>
+    <td><audio controls>
+    <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-EN-GB-f-2019-02-10-03-19-39.mpga" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </td>
+  </tr>
+  <tr>
+    <td>EN-GB</td>
+    <td>male</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-EN-GB-m-2019-02-10-03-20-14.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+</table>
+<!-- markdownlint-enable MD033 -->
+<h2 id="voice-selection">Voice selection</h2>
+<p>If you do not specify a voice in the JSON request, then one is picked for you based on the indicated language code. If you want to select a voice, you can choose from a <a href="https://cloud.google.com/text-to-speech/docs/voices">supported list</a>. Below is an example to indicate a voice preference:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span><span style="color:#75715e">#Variables</span>
+</span></span><span style="display:flex;"><span>$languageCode = <span style="color:#e6db74">&#39;en-GB&#39;</span>
+</span></span><span style="display:flex;"><span>$voicename = <span style="color:#e6db74">&#39;en-GB-Standard-D&#39;</span>
+</span></span><span style="display:flex;"><span>$text = <span style="color:#e6db74">&#34;Hey there! You&#39;re using plain text for this synthesis and selecting voice </span>$voicename<span style="color:#e6db74">.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$body = @{
+</span></span><span style="display:flex;"><span>    input = @{
+</span></span><span style="display:flex;"><span>        text = $text
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    voice = @{
+</span></span><span style="display:flex;"><span>        languageCode = $languageCode
+</span></span><span style="display:flex;"><span>        name = $voicename
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    audioConfig = @{
+</span></span><span style="display:flex;"><span>        audioEncoding = <span style="color:#e6db74">&#39;MP3&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><!-- markdownlint-disable MD033 -->
+<table style="width:100%">
+  <tr>
+    <th>languageCode</th>
+    <th>voicename</th>
+    <th>Audio</th>
+  </tr>
+  <tr>
+    <td>EN-GB</td>
+    <td>en-GB-Standard-A</td>
+    <td><audio controls>
+    <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-GB-Standard-A-2019-02-10-03-39-42.mpga" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </td>
+  </tr>
+  <tr>
+    <td>EN-GB</td>
+    <td>en-GB-Standard-B</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-GB-Standard-B-2019-02-10-03-40-12.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+    <tr>
+    <td>EN-GB</td>
+    <td>en-GB-Standard-C</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-GB-Standard-C-2019-02-10-03-40-22.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+    </tr>
+    <tr>
+    <td>EN-GB</td>
+    <td>en-GB-Standard-D</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-GB-Standard-D-2019-02-10-03-40-29.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+</table>
+<!-- markdownlint-enable MD033 -->
+<p>For completeness here is a similar set of examples with the premium Wavenet option.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>$text = <span style="color:#e6db74">&#34;Hey there! You&#39;re using plain text for this synthesis and selecting premium voice </span>$voicename<span style="color:#e6db74">.&#34;</span>
+</span></span></code></pre></div><!-- markdownlint-disable MD033 -->
+<table style="width:100%">
+  <tr>
+    <th>languageCode</th>
+    <th>voicename</th>
+    <th>Audio</th>
+  </tr>
+  <tr>
+    <td>EN-GB</td>
+    <td>en-AU-Wavenet-A</td>
+    <td><audio controls>
+    <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-AU-Wavenet-A-2019-02-10-04-00-48.mpga" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </td>
+  </tr>
+  <tr>
+    <td>EN-GB</td>
+    <td>en-AU-Wavenet-B</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-AU-Wavenet-B-2019-02-10-04-00-55.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+    <tr>
+    <td>EN-GB</td>
+    <td>en-AU-Wavenet-C</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-AU-Wavenet-C-2019-02-10-04-01-02.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+    </tr>
+    <tr>
+    <td>EN-GB</td>
+    <td>en-AU-Wavenet-D</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-en-AU-Wavenet-D-2019-02-10-04-01-07.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+</table>
+<!-- markdownlint-enable MD033 -->
+<h2 id="changing-the-audio-configuration">Changing the audio configuration</h2>
+<p>Several options are available to use for changing the resulting audio - here are three key options:</p>
+<ul>
+<li>Rate of speech</li>
+<li>Speaking pitch</li>
+<li>Gain</li>
+</ul>
+<p>We can extend our hash table to include these options, the below values represent the same as the current defaults:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Powershell" data-lang="Powershell"><span style="display:flex;"><span>audioConfig = @{
+</span></span><span style="display:flex;"><span>        audioEncoding = <span style="color:#e6db74">&#39;MP3&#39;</span>
+</span></span><span style="display:flex;"><span>        speakingRate = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        pitch = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        volumeGainDb = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>Here are some examples with the modification of those values with the following text:</p>
+<p><code>$text = &quot;The quick brown fox jumps over the lazy dog.&quot;</code></p>
+<!-- markdownlint-disable MD033 -->
+<table style="width:100%">
+  <tr>
+    <th>Audio config</th>
+    <th>Audio</th>
+  </tr>
+  <tr>
+    <td>speakingRate = 1,pitch = 0,volumeGainDb = 0</td>
+    <td><audio controls>
+    <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-AudioConfig-2019-02-10-04-31-13.mpga" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </td>
+  </tr>
+  <tr>
+    <td>speakingRate = 1.5,pitch = 0,volumeGainDb = 0</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-AudioConfig-2019-02-10-04-32-01.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+    <tr>
+    <td>speakingRate = 1,pitch = 0,volumeGainDb = 5</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-AudioConfig-2019-02-10-05-28-00.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+    </tr>
+    <tr>
+    <td>speakingRate = 1,pitch = 10,volumeGainDb = 0</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-AudioConfig-2019-02-10-05-29-09.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+</table>
+<!-- markdownlint-enable MD033 -->
+<h2 id="using-speech-synthesis-markup-language-ssml">Using Speech Synthesis Markup Language (SSML)</h2>
+<p>SSML allows you to nuance text with a variety of tools in the form of a mark-up language. Google <a href="https://cloud.google.com/text-to-speech/docs/ssml">document what they support</a> in a straightforward fashion.
+Modifying the code to use SSML is as simple as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-PowerShell" data-lang="PowerShell"><span style="display:flex;"><span><span style="color:#75715e">#Variables</span>
+</span></span><span style="display:flex;"><span>$languageCode = <span style="color:#e6db74">&#39;en-GB&#39;</span>
+</span></span><span style="display:flex;"><span>$voicename = <span style="color:#e6db74">&#39;en-GB-Wavenet-A&#39;</span>
+</span></span><span style="display:flex;"><span>$text = <span style="color:#e6db74">&#34;&lt;speak&gt;The &lt;say-as interpret-as=</span><span style="color:#ae81ff">`&#34;</span><span style="color:#e6db74">characters</span><span style="color:#ae81ff">`&#34;</span><span style="color:#e6db74">&gt;quick&lt;/say-as&gt; brown fox jumps over the lazy dog.&lt;/speak&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$body = @{
+</span></span><span style="display:flex;"><span>    input = @{
+</span></span><span style="display:flex;"><span>        ssml = $text
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    voice = @{
+</span></span><span style="display:flex;"><span>        languageCode = $languageCode
+</span></span><span style="display:flex;"><span>        name = $voicename
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    audioConfig = @{
+</span></span><span style="display:flex;"><span>        audioEncoding = <span style="color:#e6db74">&#39;MP3&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The modifications are to specify <code>ssml = $text</code> and for $text to contain a valid SSML string. Note the character escaping `&quot; so that we may use &quot; in a PowerShell string.</p>
+<!-- markdownlint-disable MD033 -->
+<table style="width:100%">
+  <tr>
+    <th>SSML say-as effect</th>
+    <th>Audio</th>
+  </tr>
+    <tr>
+    <td>none</td>
+    <td><audio controls>
+    <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-AudioConfig-2019-02-10-04-31-13.mpga" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </td>
+  </tr>
+  <tr>
+    <td>interpret-as="characters"</td>
+    <td><audio controls>
+    <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-SSML-2019-02-10-05-50-12.mpga" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </td>
+  </tr>
+  <tr>
+    <td>interpret-as="expletive"</td>
+    <td>
+        <audio controls>
+            <source src="https://ja.mesmontgomery.co.uk/audio/GTTS-Plain-SSML-2019-02-10-06-09-32.mpga" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </td>
+  </tr>
+</table>
+<!-- markdownlint-enable MD033 -->
+<h2 id="in-conclusion">In conclusion</h2>
+<p>Part of the novelty in using PowerShell for this project was the lack of direct documentation or examples. On the flip side, there were numerous examples in other languages (Ruby/Python/PHP/Node.js/Java/Go/C# and curl). Those examples helped me find analogues in PowerShell.</p>
+<p>The ability to select voices and nuance speech is relevant to adding variation into my Elite Dangerous project and working on one of the <a href="https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/#limitations">documented limitations</a>.</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>I&rsquo;ve got a standing acknowledgement to add due to the use of PowerShell and hash tables. Thanks, Kevin Marquette, for your ever-excellent <a href="https://powershellexplained.com/2016-11-06-powershell-hashtable-everything-you-wanted-to-know-about/">&ldquo;Everything you wanted to know about hashtables&rdquo;</a>.</p>
+<h1 id="related-posts">Related posts</h1>
+<p><a href="https://ja.mesmontgomery.co.uk/projects/elite-dangerous-text-to-speech/">Elite Dangerous Google Cloud Text-to-Speech project</a></p>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/api">📂API</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/google-cloud">📂Google Cloud</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/tutorial"> 🏷️Tutorial</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/powershell"> 🏷️PowerShell</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/text-to-speech"> 🏷️Text-to-Speech</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/01/how-to-base64-decode-on-windows-10-without-base64.exe/"
+                class="button big previous">How to base64 decode on Windows 10 without base64.exe</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/"
+                class="button big next">Google Firebase with a side of AWS Amplify</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

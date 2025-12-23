@@ -1,0 +1,1348 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Google Firebase with a side of AWS Amplify",
+        "headline" : "Google Firebase with a side of AWS Amplify",
+        "description" : "Dual hosting a Hugo static site with two of the largest CDNs in the world.",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2019",
+        "datePublished": "2019-02-21",
+        "dateModified" : "2019-02-21",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2019\/02\/google-firebase-with-a-side-of-aws-amplify\/",
+        "wordCount" : "848",
+        "keywords" : [ "Hugo","Git","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Google Firebase with a side of AWS Amplify</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+        
+            <meta name="description" content="Dual hosting a Hugo static site with two of the largest CDNs in the world.">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Google Firebase with a side of AWS Amplify">
+  <meta name="twitter:description" content="Dual hosting a Hugo static site with two of the largest CDNs in the world.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Google Firebase with a side of AWS Amplify">
+  <meta property="og:description" content="Dual hosting a Hugo static site with two of the largest CDNs in the world.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2019-02-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2019-02-21T00:00:00+00:00">
+    <meta property="article:tag" content="Hugo">
+    <meta property="article:tag" content="Git">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/AWSplusGCP_8d36549754e70c684bbc783eafdbb55b.jpg">
+        
+
+        
+  <meta itemprop="name" content="Google Firebase with a side of AWS Amplify">
+  <meta itemprop="description" content="Dual hosting a Hugo static site with two of the largest CDNs in the world.">
+  <meta itemprop="datePublished" content="2019-02-21T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2019-02-21T00:00:00+00:00">
+  <meta itemprop="wordCount" content="848">
+  <meta itemprop="keywords" content="Hugo,Git">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/">Google Firebase with a side of AWS Amplify</a></h1>
+            
+        
+        
+            <p>Dual hosting a Hugo static site with two of the largest CDNs in the world.</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2019-02-21'>
+            February 21, 2019</time>
+        <span class="author"></span>
+        
+            <p>4 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/" class="image featured" aria-label="AWS and GCP providing hosting.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/AWSplusGCP_8d36549754e70c684bbc783eafdbb55b.jpg" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>In this post, I&rsquo;ll discuss a rabbit hole that I went down with only a thin excuse as the reason. And here it is, a Reddit reply to a shared post from this site:</p>
+<blockquote>
+<p>I can&rsquo;t view on my desktop because your site is blocked on my network. Sorry</p>
+</blockquote>
+<p>The rabbit hole in question? Dual stacking <a href="https://ja.mesmontgomery.co.uk/projects/this-site/">this site</a> across Google and Amazon infrastructure.</p>
+<h2 id="introducing-aws-amplify">Introducing AWS Amplify</h2>
+<p>I first read about Amplify in <a href="https://aws.amazon.com/blogs/mobile/aws-mobile-gets-amplified/">this blog post</a>. It discussed the launch of Amplify Console as an evolution of the framework that proceeded it into a service offering. Described as:</p>
+<blockquote>
+<p>Scalable hosting for static web apps with serverless backends</p>
+</blockquote>
+<p>What made it attractive  was the list of Firebase-like features:</p>
+<ul>
+<li>Automatic CDN via CloudFront</li>
+<li>Automatic free HTTPS</li>
+</ul>
+<p>What made it compelling was this:</p>
+<ul>
+<li>Hugo native support (build from source files)</li>
+<li>Continous automated deployment of releases in reaction to repository updates</li>
+</ul>
+<h2 id="hugo-on-aws-amplify">Hugo on AWS Amplify</h2>
+<p>I had to consider how I wanted to consume Amplify. After some thought, I settled on a parallel deployment with a custom domain of <code>www.mesmontgomery.co.uk</code>. It would allow me to compare with Firebase without load balancing in play. Getting started was as simple as:</p>
+
+
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+
+    
+    
+    
+    
+
+    <div class="fancybox">
+      <a data-fancybox="AmplifyConfiguration" href="https://ja.mesmontgomery.co.uk/img/2019/02/AppSetupMin_5cb9ea2c4a909c460f2c1a3adfc9c729.jpg" data-caption="Getting started in only four steps."><img src="https://ja.mesmontgomery.co.uk/img/2019/02/AppSetupMin_5cb9ea2c4a909c460f2c1a3adfc9c729.jpg"></a>
+      
+    </div>
+  
+
+
+<p>I created a CodeCommit repository and populated the master branch with the current build files. Amplify detected the Hugo framework automatically upon the branch connection. Amplify applied default build settings, and a build started. The application was available with an Amplify URL in the form <code>https://master.generatedID.amplifyapp.com/</code>. All in about 2 minutes.</p>
+<p>No documentation was required to get to this point, and my jaw was on the floor.</p>
+<p>
+
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+
+    
+    
+    
+    
+
+    <div class="fancybox">
+      <a data-fancybox="Amplify" href="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyBuild1_02c0a9c2c655fe2dee3c7ff551df4e4a.png" data-caption="A nice clean overview of the build status."><img src="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyBuild1_02c0a9c2c655fe2dee3c7ff551df4e4a.png"></a>
+      
+    </div>
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+
+    
+    
+    
+    
+
+    <div class="fancybox">
+      <a data-fancybox="Amplify" href="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyBuild2_6c50f9fe631704efddffbb11ce4711cf.png" data-caption="The stages of deployment appear here and reveal detailed output when opened."><img src="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyBuild2_6c50f9fe631704efddffbb11ce4711cf.png"></a>
+      
+    </div>
+  
+
+</p>
+<h2 id="establishing-a-new-workflow">Establishing a new workflow</h2>
+<p>Bringing Amplify into this project forced a certain amount of structure by requiring Git. I follow these steps to publish to both stacks:</p>
+<ol>
+<li>Build locally and preview live content on Hugo Server.</li>
+<li>Populate the \Public folder with static files via a Hugo build. Deploy to Firebase.</li>
+<li>Check Firebase matches the local content.</li>
+<li>Merge into the master branch and push to CodeCommit. Wait ~2 minutes.</li>
+<li>Compare Amplify new content vs the Firebase content.</li>
+</ol>
+<p>It would be interesting to automate the Amplify build triggering a Firebase deploy in future. I&rsquo;ll wait until I&rsquo;m entirely comfortable with the above.</p>
+<p>I&rsquo;ve linked a couple of articles at the bottom which I find useful as a reference for Git branching.</p>
+<h2 id="connecting-a-domain">Connecting a domain</h2>
+<p>You&rsquo;ll want to connect your domain name to the application. Amazon promotes its Route53 one-click integration though you may use externally supplied DNS by following their guidelines. If you only want one record as I did, make sure to omit the root of the domain from the custom domain request.<br>
+
+
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+
+    
+    
+    
+    
+
+    <div class="fancybox">
+      <a data-fancybox="AmplifyConfiguration" href="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyCustomSubDomain_2ea27b04a655018a3365029167d55caf.jpg" data-caption="Target only a specific record for inclusion - not including the root domain."><img src="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyCustomSubDomain_2ea27b04a655018a3365029167d55caf.jpg"></a>
+      
+    </div>
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+
+    
+    
+    
+    
+
+    <div class="fancybox">
+      <a data-fancybox="AmplifyConfiguration" href="https://ja.mesmontgomery.co.uk/img/2019/02/CustomSubDomainOwnership.PNG" data-caption="DNS records you need to create to complete the process."><img src="https://ja.mesmontgomery.co.uk/img/2019/02/CustomSubDomainOwnership.PNG"></a>
+      
+    </div>
+  
+
+
+Upon creation of the required records, AWS will issue a certificate and deploy this into CloudFront alongside your content:
+
+
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+
+    
+    
+    
+    
+
+    <div class="fancybox">
+      <a data-fancybox="AmplifyConfiguration" href="https://ja.mesmontgomery.co.uk/img/2019/02/CustomCertificate.PNG" data-caption="The certificate generated for your site by Amazon."><img src="https://ja.mesmontgomery.co.uk/img/2019/02/CustomCertificate.PNG"></a>
+      
+    </div>
+  
+
+</p>
+<h2 id="debugging">Debugging</h2>
+<p>There has been only one issue requiring me to troubleshoot the service, a functional difference when comparing the two deployments. Syntax highlighting was not working in the Amplify hosted build.</p>
+<p>Initially, I thought it was a build difference as I never sought to learn the Hugo version in play.
+We can see this in the provisioning log:
+<code>ENV VERSION_HUGO = 0.51</code>.</p>
+<p>
+
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+
+    
+    
+    
+    
+
+    <div class="fancybox">
+      <a data-fancybox="Amplify" href="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyProvision1_1bc399c208e09d46bead6f65a375af60.png" data-caption="The provision configuration which you can review."><img src="https://ja.mesmontgomery.co.uk/img/2019/02/AmplifyProvision1_1bc399c208e09d46bead6f65a375af60.png"></a>
+      
+    </div>
+  
+
+
+I was using a newer release of Hugo locally however rebuilding with the same version as Amplify did not reproduce the issue.</p>
+<p>I surmised that double slashes were causing an issue after a source code review. Note the path for <code>highlight.min.js</code>:</p>
+<p>
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/02/doubleslashing_311d72f59ecf683b700b692beb40b884.png'
+                            alt="Double slashing illustrateds">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+Some research shows web server behaviour may vary in the treatment of this. The configuration (an extra <code>\</code> in <code>config.toml</code>)  leading to this was changed resolving the issue.</p>
+<p>The Hugo version is something I&rsquo;ve not found how to modify. It seems like it should be possible as its an environment variable in the build process.</p>
+<h2 id="another-way-to-host-hugo-with-amplify">Another way to host Hugo with Amplify</h2>
+<p>It occurred to me that if the Hugo version were to cause an issue, then I would require another approach.</p>
+<p>I created another repository based on the static files Hugo produces in the \Public folder. When you connect the Amplify Console to this, it defaults to a standard Web framework. It becomes a direct replacement for hosting static content as you would on Firebase.</p>
+<p>I believe this is a more straightforward solution with greater control, and I will likely favour it.</p>
+<h2 id="visualising-the-solution">Visualising the solution</h2>
+<p>The result is two discrete deployments of the website hosted by different providers with global content distribution networks. In this active/passive model, I would need to intervene if one service was unavailable.
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2019/02/duelstack.jpeg'
+                            alt="Duel stack">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+</p>
+<h2 id="in-conclusion">In conclusion</h2>
+<p>There was an issue with the site which had nothing to do with a network block. One of the CSS files was hosted externally and not available at times. I had realised that before completing this experiment but saw value in finishing. The complexity in building across multiple public cloud platforms for even a simple hobby site such as this can be telling.</p>
+<p>I&rsquo;ll leave you with this classic video (The Website is Down #1: Sales Guy vs Web Dude):</p>
+<p><a href="https://www.youtube.com/watch?v=uRGljemfwUE&amp;feature=youtu.be&amp;t=45"><img src="https://img.youtube.com/vi/uRGljemfwUE/0.jpg" alt="The website is down!"></a></p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>The <a href="https://git-scm.com/book/en/v2">Pro Git book</a> I found wonderfully useful.  I&rsquo;ve also had this <a href="https://nvie.com/posts/a-successful-git-branching-model/">branching article</a> bookmarked for some time and read it multiple times. One <a href="https://blah.cloud/blog/">Myles Gray</a> put me onto it.</p>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/aws">📂AWS</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/google-cloud">📂Google Cloud</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/hugo"> 🏷️Hugo</a></li>
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/git"> 🏷️Git</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/02/google-cloud-text-to-speech-with-powershell/"
+                class="button big previous">Google Cloud Text-to-Speech with PowerShell</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2019/03/tts-project-update-1-adding-texture-to-my-generated-speech/"
+                class="button big next">TTS project update 1 - adding texture to my generated speech</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+

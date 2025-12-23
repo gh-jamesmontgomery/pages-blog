@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on James Montgomery</title>
+    <link>https://ja.mesmontgomery.co.uk/categories/</link>
+    <description>Recent content in Categories on James Montgomery</description>
+    <generator>Hugo</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ja.mesmontgomery.co.uk/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloudflare</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/cloudflare/</link>
+      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/cloudflare/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Scripting</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/scripting/</link>
+      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/scripting/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Maintenance</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/maintenance/</link>
+      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/maintenance/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>API</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/api/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/api/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AWS</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/aws/</link>
+      <pubDate>Wed, 13 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/aws/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Privacy</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/privacy/</link>
+      <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/privacy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Visualisation</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/visualisation/</link>
+      <pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/visualisation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Automation</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/automation/</link>
+      <pubDate>Thu, 06 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/automation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Google Cloud</title>
+      <link>https://ja.mesmontgomery.co.uk/categories/google-cloud/</link>
+      <pubDate>Fri, 22 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://ja.mesmontgomery.co.uk/categories/google-cloud/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

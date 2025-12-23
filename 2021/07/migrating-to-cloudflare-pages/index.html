@@ -1,0 +1,1528 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/ja.mesmontgomery.co.uk\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Migrating to Cloudflare Pages",
+        "headline" : "Migrating to Cloudflare Pages",
+        "description" : "Moving from Cloudflare as a proxy to Cloudflare as my hosting platform.",
+        "inLanguage" : "en",
+        "author" : "James Montgomery",
+        "creator" : "James Montgomery",
+        "publisher": "James Montgomery",
+        "accountablePerson" : "James Montgomery",
+        "copyrightHolder" : "James Montgomery",
+        "copyrightYear" : "2021",
+        "datePublished": "2021-07-14",
+        "dateModified" : "2021-07-14",
+        "url" : "https:\/\/ja.mesmontgomery.co.uk\/2021\/07\/migrating-to-cloudflare-pages\/",
+        "wordCount" : "1061",
+        "keywords" : [ "hosting","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Migrating to Cloudflare Pages</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.140.2">
+        
+  
+    
+  
+
+  
+
+  <link rel="apple-touch-icon-precomposed" href='https://ja.mesmontgomery.co.uk/favicon/apple-touch-icon-precomposed.png'>
+  <link rel="icon" href='https://ja.mesmontgomery.co.uk/favicon/favicon.png'>
+  
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content='/favicon/mstile.png'>
+  <meta name="application-name" content="James Montgomery">
+  <meta name="msapplication-tooltip" content="Adventures in tab and spaces.">
+  <meta name="msapplication-config" content='/favicon/ieconfig.xml'>
+
+
+
+        
+            <meta name="author" content="James Montgomery">
+        
+        
+            <meta name="description" content="Moving from Cloudflare as a proxy to Cloudflare as my hosting platform.">
+        
+
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Migrating to Cloudflare Pages">
+  <meta name="twitter:description" content="Moving from Cloudflare as a proxy to Cloudflare as my hosting platform.">
+
+        <meta property="og:url" content="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">
+  <meta property="og:site_name" content="James Montgomery">
+  <meta property="og:title" content="Migrating to Cloudflare Pages">
+  <meta property="og:description" content="Moving from Cloudflare as a proxy to Cloudflare as my hosting platform.">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-07-14T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-07-14T00:00:00+00:00">
+    <meta property="article:tag" content="Hosting">
+
+
+
+        
+        <meta property="og:image" content="https://ja.mesmontgomery.co.uk//img/posts/21-cfpages-4.png">
+        
+
+        
+  <meta itemprop="name" content="Migrating to Cloudflare Pages">
+  <meta itemprop="description" content="Moving from Cloudflare as a proxy to Cloudflare as my hosting platform.">
+  <meta itemprop="datePublished" content="2021-07-14T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-07-14T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1061">
+  <meta itemprop="keywords" content="Hosting">
+
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/main.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/add-on.css">
+            <link rel="stylesheet" href="https://ja.mesmontgomery.co.uk/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="https://ja.mesmontgomery.co.uk/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/">
+                            <i class="">&nbsp;</i>🏠 Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <i class="">&nbsp;</i>🪪 About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <i class="">&nbsp;</i>📰 Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <i class="">&nbsp;</i>🗂️ Projects
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <i class="">&nbsp;</i>📂 Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <i class="">&nbsp;</i>🏷️ Tags
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://ja.mesmontgomery.co.uk/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏠 Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/about/">
+                            <h3>
+                                <i class="">&nbsp;</i>🪪 About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/blog/">
+                            <h3>
+                                <i class="">&nbsp;</i>📰 Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/projects/">
+                            <h3>
+                                <i class="">&nbsp;</i>🗂️ Projects
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/categories/">
+                            <h3>
+                                <i class="">&nbsp;</i>📂 Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://ja.mesmontgomery.co.uk/tags/">
+                            <h3>
+                                <i class="">&nbsp;</i>🏷️ Tags
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-10-14'>
+                                    October 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-07-14'>
+                                    July 14, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2021-01-13'>
+                                    January 13, 2021</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a></h1>
+            
+        
+        
+            <p>Moving from Cloudflare as a proxy to Cloudflare as my hosting platform.</p>
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2021-07-14'>
+            July 14, 2021</time>
+        <span class="author">James Montgomery</span>
+        
+            <p>5 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+  
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+  <div id="content">
+    <h2 id="tl-dr">TL; DR</h2>
+<p>I recently decided to evaluate Cloudflare as a static site hosting provider. This post covers my findings and migration from AWS Amplify.</p>
+<h2 id="amplify-overview">Amplify Overview</h2>
+<p>The <a href="https://ja.mesmontgomery.co.uk/2020/09/migrating-site-to-aws/">Amplify configuration is unchanged from the previous migration post</a>. The website is statically generated content built with <a href="https://gohugo.io/">Hugo</a> (noted as Hugo assets in the diagram). Cloudflare provides a proxy to save on bandwidth and provide a CDN function.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF-AWS-2021-06-15-0737.png'
+                            alt="How I combined AWS Amplify with Cloudflare">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>Besides providing hosting for <code>ja.mesmontgomery.co.uk</code>, Amplify provides several redirects.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF-AWS-2021-Redirects.png'
+                            alt="How I combined AWS Amplify with Cloudflare">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h2 id="cloudflare-pages">Cloudflare Pages</h2>
+<p>Cloudflare pitch Pages in this <a href="https://blog.cloudflare.com/cloudflare-pages/">blog post</a>. The key benefit for me was the migration of the origin to the edge itself.</p>
+<blockquote>
+<p>With Pages, your site is deployed directly to our edge, milliseconds away from customers, and at a global scale.</p>
+</blockquote>
+<p>A successful transition required:</p>
+<ul>
+<li>Git-based deployment</li>
+<li>HTTP to HTTPS redirection</li>
+<li>Alias redirection</li>
+</ul>
+<h3 id="git-deployment">Git deployment</h3>
+<p>Cloudflare Pages <a href="https://developers.cloudflare.com/pages/getting-started">support Github only</a> at the time of writing. Using GitHub required a change on my part. However, I liked the ability to use a private repository as the source without granting access to all:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF%20pages%20GitHub%20repo%20selection.png'
+                            alt="The Github pages / Cloudflare application configuration">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h3 id="redirection">Redirection</h3>
+<p>Replacing the redirection capabilities in AWS Amplify with analogues in Cloudflare is a <a href="https://support.cloudflare.com/hc/en-us/articles/200172286-Configuring-URL-forwarding-or-redirects-with-Cloudflare-Page-Rules">straightforward task with page rules</a>. The <a href="https://support.cloudflare.com/hc/en-us/articles/218411427-Understanding-and-Configuring-Cloudflare-Page-Rules-Page-Rules-Tutorial-">settings</a> <code>Always use HTTPS</code> and <code>Forwarding URL</code> would accomplish the task.</p>
+<p>However, I am working within the constraints of the free plan. I have already used my allowance of page rules. Below I cover my solution to working inside these limits.</p>
+<h4 id="http-to-https-redirection">HTTP to HTTPS redirection</h4>
+<p>I don&rsquo;t serve any HTTP traffic. Therefore one way of accomplishing this without a page rule is via the zone global setting of <code>Always use HTTPS</code> in the <code>SSL/TLS</code> app.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF%20SSL%20always%20use%20HTTPS.png'
+                            alt="Configuring to use HTTPS always in Cloudflare">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h4 id="alias-redirection">Alias redirection</h4>
+<p>It is possible to provide redirection using Cloudflare Workers. I used their <a href="https://developers.cloudflare.com/workers/examples/redirect">reference template</a> to accomplish this. The code is below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">base</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://ja.mesmontgomery.co.uk&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">statusCode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">301</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleRequest</span>(<span style="color:#a6e22e">request</span>) {  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">URL</span>(<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">url</span>)  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">pathname</span>, <span style="color:#a6e22e">search</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">destinationURL</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">base</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pathname</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">search</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Response</span>.<span style="color:#a6e22e">redirect</span>(<span style="color:#a6e22e">destinationURL</span>, <span style="color:#a6e22e">statusCode</span>)}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;fetch&#34;</span>, <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">event</span> =&gt; {  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(<span style="color:#a6e22e">handleRequest</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>))
+</span></span><span style="display:flex;"><span>  })
+</span></span></code></pre></div><p>The resulting configuration:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/Redirects-2021-CF.png'
+                            alt="Redirects on Cloudflare">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<h4 id="migration">Migration</h4>
+<p>Each Pages project provides a <code>pages.dev</code> record. It was possible to set up the site in parallel and test it with that record.</p>
+<p>Redirecting DNS was the last step. The final  DNS entry is a CNAME to the original <code>pages.dev</code> record.</p>
+<p>As I had a <code>CNAME</code> record in place already to Amplify, the wizard correctly identified this and offered to replace it.</p>
+<h3 id="caching">Caching</h3>
+<p>I was curious how an edge deployment model would affecting caching.  The product documentation <a href="https://developers.cloudflare.com/pages/platform/serving-pages#caching-and-performance">here</a> explains what to expect.</p>
+<blockquote>
+<p>As much as possible, Pages sets ETag and If-None-Match headers to allow clients to also cache content in their browsers.</p>
+</blockquote>
+<p>However, I was initially surprised to see network transfer for pages I had recently visited. Each request appeared to be approximately 500 bytes. What surprised me was the defaults of <code>max-age=0,must-revalidate</code> causing the behaviour. For example:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF%20304%20request.png'
+                            alt="After the first request this behavior is observed">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>We can see the validation attempt in the request and response header confirmation in <code>if-none-match</code> and <code>etag</code> to use the browser cached resource:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF%20304%20response.png'
+                            alt="After the first request this behavior is observed">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>Mozilla <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching">document</a> this behavior. I have elected for now to add a max-age value to the content via a Page rule.</p>
+<p>These defaults may suit a front-end application better to ensure clients use the latest assets with minimal overhead.</p>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p>There is no doubt migrating to a new platform brings the opportunity to introduce mistakes or differences in function.</p>
+<p>One such occasion arose when Google Search reported to me that a previously working page now returned a coverage issue: <code>Submitted URL not found (404)</code>.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/Google%20Search%20404%20URL.png'
+                            alt="The Google Search console 404 coverage results">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>The last deployment indicated no issues:</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF-build-status.png'
+                            alt="The build status page. No issues indicated.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>Next, I checked the source repository. To my surprise, the file was not present on Github but present on my local machine.</p>
+<p>Suspecting the file was ignored by Git, I check if it is included via <code>git status --ignore</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>Ignored files:  
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>use <span style="color:#e6db74">&#34;git add -f &lt;file&gt;...&#34;</span> to include in what will be committed<span style="color:#f92672">)</span>  
+</span></span><span style="display:flex;"><span>    .DS_Store  
+</span></span><span style="display:flex;"><span>    public/2020/.DS_Store  
+</span></span><span style="display:flex;"><span>    public/2020/02/
+</span></span></code></pre></div><p>The <code>gitignore</code> file wasn&rsquo;t what I had used in my last repository. On this occasion, using GitHub&rsquo;s new repository workflow, I recall selecting a provided option for Visual Studio presets. As I used VS Code, I elected to give it a try.</p>
+<p>You can review the entire template <a href="https://github.com/github/gitignore/blob/master/VisualStudio.gitignore">here</a>.</p>
+<p>Correcting the file with my requirements removed them from being ignored.</p>
+<p>Why was it ignored? To determine we use <code>git check-ignore -v **/*</code>.</p>
+<p>Output below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>git check-ignore -v **/*
+</span></span><span style="display:flex;"><span>.gitignore:248:Backup*/ public/2020/02 copy 2/Backup-of-cloudflare-dns-to-aws-dynamodb
+</span></span><span style="display:flex;"><span>.gitignore:248:Backup*/ public/2020/02 copy 2/Backup-of-cloudflare-dns-to-aws-dynamodb/index.html
+</span></span><span style="display:flex;"><span>.gitignore:248:Backup*/ public/2020/02 copy/backup-of-cloudflare-dns-to-aws-dynamodb
+</span></span><span style="display:flex;"><span>.gitignore:248:Backup*/ public/2020/02 copy/backup-of-cloudflare-dns-to-aws-dynamodb/index.html
+</span></span></code></pre></div><p>Thanks to <a href="https://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore">stackoverflow</a> for the pointer.</p>
+<p>Line 248 in that version of the file is:</p>
+<blockquote>
+<p>Backup*/</p>
+</blockquote>
+<p>My initial understanding was that this shouldn&rsquo;t match, as the matching path was lower case. However, on examing the file system, it would appear that case sensitivity isn&rsquo;t applicable.</p>
+<p>The file system <code>APFS</code> would <a href="https://support.apple.com/en-gb/guide/disk-utility/dsku19ed921c/mac">appear to be case insensitive</a>, and <a href="https://www.hanselman.com/blog/git-is-casesensitive-and-your-filesystem-may-not-be-weird-folder-merging-on-windows">Scott Hanselman have blogged on some of their challenges</a>.</p>
+<p>Lesson learned, check for ignored files when performing a repository migration.</p>
+<h2 id="performance-measurement">Performance measurement</h2>
+<p>I was curious how this would perform in the end. I have <a href="https://ja.mesmontgomery.co.uk/2019/03/duel-stack-life-exchanging-momentum-for-speed/">previously documented performance</a> using <a href="https://gtmetrix.com">GTMetrix</a>. The Cloudflare team are aware that people chase high lighthouse scores.</p>
+
+
+
+    
+
+    
+    
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+    
+
+    <div class="box alt">
+        <div class="row uniform">
+        
+        
+        
+            
+                <div class="1u">
+            
+            
+        
+            
+                
+                    
+                    <span class="image fit">
+                
+            
+            
+        
+            
+                
+                        <img src='https://ja.mesmontgomery.co.uk/img/2021/07/CF%20Pages%20GTMetrix.png'
+                            alt="GTMetrix performance report after migration.">
+                    </span></div>
+                
+                
+            
+            
+        
+        </div>
+    </div>
+
+
+<p>I include the above screenshot to show a recent score that running on Pages achieved. It is a great result as far as I&rsquo;m concerned. I have also linked to a previous post, which includes some screenshots from 2019. On the face of it, this will look like a massive performance increase.</p>
+<p>It is not the case. There have been changes to the site and methods of performance assessment. I have run a recent test against the Amplify URL with identical content - there is not much in it, either way, to be honest.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Let me start by saying that I&rsquo;ve no issue with Amplify. In some ways, I consider it superior in features. As always, which platform you want to use depends highly on your needs and existing ecosystem.</p>
+<p>For anyone starting in this space, especially if it is a simple Hugo blog, Cloudflare Pages is recommended.</p>
+<h2 id="related-posts">Related posts</h2>
+<ul>
+<li><a href="https://ja.mesmontgomery.co.uk/projects/this-site/">This site is a project</a></li>
+<li><a href="https://ja.mesmontgomery.co.uk/2020/09/migrating-site-to-aws/">Migrating site to AWS</a></li>
+<li><a href="https://ja.mesmontgomery.co.uk/2019/09/updating-site-privacy-settings/">Tighter privacy settings</a></li>
+<li><a href="https://ja.mesmontgomery.co.uk/2019/03/duel-stack-life-exchanging-momentum-for-speed/">Duel stack life - exchanging momentum for speed</a></li>
+<li><a href="https://ja.mesmontgomery.co.uk/2019/02/google-firebase-with-a-side-of-aws-amplify/">Google Firebase with a side of AWS Amplify</a></li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<ul>
+<li>Thanks to Cloudflare, GitHub and GTMetrix for the capabilities in their free plans.</li>
+<li>Thanks to the team at <a href="https://blog.excalidraw.com/">Excalidraw</a>. I used their excellent <a href="https://excalidraw.com/">whiteboard tool</a> to put the diagrams above together.</li>
+<li>Thanks to OpenMoji for the <a href="https://openmoji.org/library/#search=bird&amp;emoji=1F54A">dove</a>. I have modified the colours on the dove.</li>
+</ul>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/categories/maintenance">📂maintenance</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+
+                
+                
+                <li><a class="article-category-link" href="https://ja.mesmontgomery.co.uk/tags/hosting"> 🏷️hosting</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/"
+                class="button big previous">API Diversions</a></li>
+    
+
+    
+        <li><a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/"
+                class="button big next">Introducing Station Finder</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='https://ja.mesmontgomery.co.uk/'><img src="https://ja.mesmontgomery.co.uk/img/main/logo.jpg" class="intro-circle" width="" alt="James Montgomery logo" /></a>
+      
+    
+    
+      <header>
+        <h2>James Montgomery</h2>
+        <p>Check out the <a href="https://ja.mesmontgomery.co.uk/projects">projects</a> I'm working on, and the <a href="https://ja.mesmontgomery.co.uk/blog">progress</a> along the way!</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+
+        
+        
+  <li><a href="//github.com/gh-jamesmontgomery" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+  <li><a href="//linkedin.com/in/1jamesmontgomery" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+  <li><a href="//youtube.com/channel/UCG3gVeKcTIQSpK6NrtFyMVA" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/">Introducing Station Finder</a>
+              </h3>
+              
+              <time class="published" datetime='2021-10-14'>
+                October 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/10/introducing-station-finder/" class="image featured" aria-label="The image shows a van parked at a fuel station. The blog post is about building a single page application exclusively on Cloudflare products.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-stationfinder-2.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/">Migrating to Cloudflare Pages</a>
+              </h3>
+              
+              <time class="published" datetime='2021-07-14'>
+                July 14, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/07/migrating-to-cloudflare-pages/" class="image featured" aria-label="The image shows pages and birds flocking to Cloudflare. The blog post is about consolidating to Cloudflare as my static content hosting provider.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-cfpages-4.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/">API Diversions</a>
+              </h3>
+              
+              <time class="published" datetime='2021-01-13'>
+                January 13, 2021
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+
+
+        
+        
+        
+
+        <a href="https://ja.mesmontgomery.co.uk/2021/01/api-diversions/" class="image featured" aria-label="The image shows two parrots back to back. This a a post about a text to speach project in which I was consolidating to AWS.">
+            <img src="https://ja.mesmontgomery.co.uk/img/posts/21-tts-1.png" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="https://ja.mesmontgomery.co.uk/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/aws/">aws</a>
+                <span style="float:right;">10</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/api/">api</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/scripting/">scripting</a>
+                <span style="float:right;">6</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/google-cloud/">google cloud</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/visualisation/">visualisation</a>
+                <span style="float:right;">4</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/maintenance/">maintenance</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/automation/">automation</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/cloudflare/">cloudflare</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="https://ja.mesmontgomery.co.uk/categories/privacy/">privacy</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2025
+        
+          James Montgomery
+        
+      .
+      <br>Site template by <a href="http://html5up.net\" target="_blank">HTML5 UP</a>, 
+      <br>ported by <a href="https://jpescador.com/" target="_blank">Julio Pescador</a> <br>Powered by <a href="//gohugo.io" target="_blank">Hugo</a> 
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+    
+    
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/util.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/main.js"></script>
+      <script src="https://ja.mesmontgomery.co.uk/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+  </body>
+</html>
+
