@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Privacy on James Montgomery</title>
-    <link>https://ja.mesmontgomery.co.uk/categories/privacy/</link>
+    <link>https://gh-jamesmontgomery.github.io/pages-blog/categories/privacy/</link>
     <description>Recent content in Privacy on James Montgomery</description>
     <generator>Hugo</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 10 Sep 2019 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ja.mesmontgomery.co.uk/categories/privacy/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://gh-jamesmontgomery.github.io/pages-blog/categories/privacy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Updating site privacy settings</title>
-      <link>https://ja.mesmontgomery.co.uk/2019/09/updating-site-privacy-settings/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2019/09/updating-site-privacy-settings/</link>
       <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2019/09/updating-site-privacy-settings/</guid>
-      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been reviewing the available Hugo privacy settings.&lt;/p&gt;&#xA;&lt;p&gt;You can review the latest configuration on my &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/this-site/&#34;&gt;site&lt;/a&gt; project page. Below I discuss the purpose of the changes.&lt;/p&gt;&#xA;&lt;h2 id=&#34;do-not-track&#34;&gt;Do not track&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve updated my Hugo site configuration to respect &amp;ldquo;do not track&amp;rdquo; (DNT) browser settings in Google Analytics. The effect is similar to browsing a site in private or incognito mode, which if you used previously blocked Google Analytics.&lt;/p&gt;&#xA;&lt;p&gt;If you have DNT enabled as part of your usual browser configuration, Google Analytics on this site will not run when you visit.&lt;/p&gt;</description>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2019/09/updating-site-privacy-settings/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been reviewing the available Hugo privacy settings.&lt;/p&gt;&#xA;&lt;p&gt;You can review the latest configuration on my &lt;a href=&#34;https://gh-jamesmontgomery.github.io/pages-blog/projects/this-site/&#34;&gt;site&lt;/a&gt; project page. Below I discuss the purpose of the changes.&lt;/p&gt;&#xA;&lt;h2 id=&#34;do-not-track&#34;&gt;Do not track&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve updated my Hugo site configuration to respect &amp;ldquo;do not track&amp;rdquo; (DNT) browser settings in Google Analytics. The effect is similar to browsing a site in private or incognito mode, which if you used previously blocked Google Analytics.&lt;/p&gt;&#xA;&lt;p&gt;If you have DNT enabled as part of your usual browser configuration, Google Analytics on this site will not run when you visit.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

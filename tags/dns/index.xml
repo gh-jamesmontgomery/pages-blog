@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DNS on James Montgomery</title>
-    <link>https://ja.mesmontgomery.co.uk/tags/dns/</link>
+    <link>https://gh-jamesmontgomery.github.io/pages-blog/tags/dns/</link>
     <description>Recent content in DNS on James Montgomery</description>
     <generator>Hugo</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 21 Feb 2020 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ja.mesmontgomery.co.uk/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://gh-jamesmontgomery.github.io/pages-blog/tags/dns/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backup of Cloudflare DNS to AWS DynamoDB</title>
-      <link>https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</link>
       <pubDate>Fri, 21 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</guid>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</guid>
       <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;After a short break, I decided to take an item off the project list. DNS is a rich source of inspiration for me - and so I elected for a quick win in the form of serverless DNS records backup. The goal of which is to backup my DNS zone contents, via functions as a service (FaaS) and storage as a service (object or database).&lt;/p&gt;&#xA;&lt;p&gt;You can find all the associated code for this on my &lt;a href=&#34;https://github.com/gh-jamesmontgomery/cloudflare-dns&#34;&gt;GitHub page&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Domain migration and enabling DNSSEC</title>
-      <link>https://ja.mesmontgomery.co.uk/2019/09/domain-migration-and-enabling-dnssec/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2019/09/domain-migration-and-enabling-dnssec/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2019/09/domain-migration-and-enabling-dnssec/</guid>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2019/09/domain-migration-and-enabling-dnssec/</guid>
       <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;The renewal date on my .co.uk domain was nearing. I decided to make a change from 123-reg to iwantmyname. After migration, I captured the process to enable DNSSEC when using Cloudflare for DNS. For those thinking of a similar migration, I have also documented my experience of moving to iwantmyname.&lt;/p&gt;&#xA;&lt;h2 id=&#34;couk-domain-registrar-migration-to-iwantmyname&#34;&gt;.co.uk domain registrar migration to iwantmyname&lt;/h2&gt;&#xA;&lt;p&gt;I had used iwantmyname previously and so benefitted from having an account already. After sign-in/signup the overview page has a link to allow a domain transfer to start:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Visualising your DNS cache with PSGraph</title>
-      <link>https://ja.mesmontgomery.co.uk/2019/04/visualising-your-dns-cache-with-psgraph/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2019/04/visualising-your-dns-cache-with-psgraph/</link>
       <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2019/04/visualising-your-dns-cache-with-psgraph/</guid>
-      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;d like to introduce you to how I&amp;rsquo;ve used &lt;a href=&#34;https://github.com/KevinMarquette/PSGraph/&#34;&gt;PSGraph&lt;/a&gt; to create visuals from code.  I&amp;rsquo;ll show you how to represent the Windows DNS cache graphically. Here is an example output (&lt;a href=&#34;https://ja.mesmontgomery.co.uk/img/2019/04/psgraph-cache-1.png&#34;&gt;click for a full size image&lt;/a&gt;):&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://ja.mesmontgomery.co.uk/img/2019/04/psgraph-cache-1.png&#34;&gt;&#xA;&#xA;&#xA;    &#xA;&#xA;    &#xA;    &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;  &#xA;    &#xA;  &#xA;&#xA;&#xA;    &#xA;&#xA;    &lt;div class=&#34;box alt&#34;&gt;&#xA;        &lt;div class=&#34;row uniform&#34;&gt;&#xA;        &#xA;        &#xA;        &#xA;            &#xA;                &lt;div class=&#34;1u&#34;&gt;&#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                    &#xA;                    &lt;span class=&#34;image fit&#34;&gt;&#xA;                &#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                        &lt;img src=&#39;https://ja.mesmontgomery.co.uk/img/2019/04/psgraph-cache-1.png&#39;&#xA;                            alt=&#34;Sample of my cache&#34;&gt;&#xA;                    &lt;/span&gt;&lt;/div&gt;&#xA;                &#xA;                &#xA;            &#xA;            &#xA;        &#xA;        &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Below I cover how to arrive at that outcome. You can find all scripts used at my &lt;a href=&#34;https://github.com/gh-jamesmontgomery/psgraph-dns-cache&#34;&gt;GitHub page&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-dns&#34;&gt;Why DNS&lt;/h2&gt;&#xA;&lt;p&gt;The hierarchical nature of DNS (subdomain.topleveldomain.rootdomain) lends itself to graphing. Head over to &lt;a href=&#34;https://dnsdumpster.com/&#34;&gt;dnsdumpster&lt;/a&gt; if you want to see an excellent example of that.&lt;/p&gt;</description>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2019/04/visualising-your-dns-cache-with-psgraph/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;d like to introduce you to how I&amp;rsquo;ve used &lt;a href=&#34;https://github.com/KevinMarquette/PSGraph/&#34;&gt;PSGraph&lt;/a&gt; to create visuals from code.  I&amp;rsquo;ll show you how to represent the Windows DNS cache graphically. Here is an example output (&lt;a href=&#34;https://gh-jamesmontgomery.github.io/pages-blog/img/2019/04/psgraph-cache-1.png&#34;&gt;click for a full size image&lt;/a&gt;):&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://gh-jamesmontgomery.github.io/pages-blog/img/2019/04/psgraph-cache-1.png&#34;&gt;&#xA;&#xA;&#xA;    &#xA;&#xA;    &#xA;    &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;  &#xA;    &#xA;  &#xA;&#xA;&#xA;    &#xA;&#xA;    &lt;div class=&#34;box alt&#34;&gt;&#xA;        &lt;div class=&#34;row uniform&#34;&gt;&#xA;        &#xA;        &#xA;        &#xA;            &#xA;                &lt;div class=&#34;1u&#34;&gt;&#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                    &#xA;                    &lt;span class=&#34;image fit&#34;&gt;&#xA;                &#xA;            &#xA;            &#xA;        &#xA;            &#xA;                &#xA;                        &lt;img src=&#39;https://gh-jamesmontgomery.github.io/pages-blog/img/2019/04/psgraph-cache-1.png&#39;&#xA;                            alt=&#34;Sample of my cache&#34;&gt;&#xA;                    &lt;/span&gt;&lt;/div&gt;&#xA;                &#xA;                &#xA;            &#xA;            &#xA;        &#xA;        &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Below I cover how to arrive at that outcome. You can find all scripts used at my &lt;a href=&#34;https://github.com/gh-jamesmontgomery/psgraph-dns-cache&#34;&gt;GitHub page&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-dns&#34;&gt;Why DNS&lt;/h2&gt;&#xA;&lt;p&gt;The hierarchical nature of DNS (subdomain.topleveldomain.rootdomain) lends itself to graphing. Head over to &lt;a href=&#34;https://dnsdumpster.com/&#34;&gt;dnsdumpster&lt;/a&gt; if you want to see an excellent example of that.&lt;/p&gt;</description>
     </item>
     <item>
       <title>A punnet of raspberries with a side of visuals</title>
-      <link>https://ja.mesmontgomery.co.uk/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/</link>
       <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/</guid>
-      <description>&lt;h1 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h1&gt;&#xA;&lt;p&gt;I finally dusted off that Raspberry Pi in the corner. Initially, I was putting Pi-hole through its paces. One thing led to another as a new rabbit hole emerged in the form of adding encrypted transport to forwarded queries (a &lt;a href=&#34;https://ja.mesmontgomery.co.uk/2019/03/a-punnet-of-raspberries-with-a-side-of-api/#relevant-posts&#34;&gt;subject&lt;/a&gt; I visited in the past). I purchased another Pi for resiliency. I then explored how I might visualise the performance of the solution.&lt;/p&gt;&#xA;&lt;p&gt;Lastly, a first for me, I have shared this code on my &lt;a href=&#34;https://github.com/gh-jamesmontgomery/ud-ping-dns&#34;&gt;GitHub page&lt;/a&gt;.&lt;/p&gt;</description>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2019/04/a-punnet-of-raspberries-with-a-side-of-visuals/</guid>
+      <description>&lt;h1 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h1&gt;&#xA;&lt;p&gt;I finally dusted off that Raspberry Pi in the corner. Initially, I was putting Pi-hole through its paces. One thing led to another as a new rabbit hole emerged in the form of adding encrypted transport to forwarded queries (a &lt;a href=&#34;https://gh-jamesmontgomery.github.io/pages-blog/2019/03/a-punnet-of-raspberries-with-a-side-of-api/#relevant-posts&#34;&gt;subject&lt;/a&gt; I visited in the past). I purchased another Pi for resiliency. I then explored how I might visualise the performance of the solution.&lt;/p&gt;&#xA;&lt;p&gt;Lastly, a first for me, I have shared this code on my &lt;a href=&#34;https://github.com/gh-jamesmontgomery/ud-ping-dns&#34;&gt;GitHub page&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

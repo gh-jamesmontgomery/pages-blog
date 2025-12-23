@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Automation on James Montgomery</title>
-    <link>https://ja.mesmontgomery.co.uk/categories/automation/</link>
+    <link>https://gh-jamesmontgomery.github.io/pages-blog/categories/automation/</link>
     <description>Recent content in Automation on James Montgomery</description>
     <generator>Hugo</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 06 Jun 2019 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ja.mesmontgomery.co.uk/categories/automation/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://gh-jamesmontgomery.github.io/pages-blog/categories/automation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Order, order!</title>
-      <link>https://ja.mesmontgomery.co.uk/2019/06/order-order/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2019/06/order-order/</link>
       <pubDate>Thu, 06 Jun 2019 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2019/06/order-order/</guid>
-      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;A year ago, I took to AWS to solve a &lt;a href=&#34;https://www.linkedin.com/pulse/using-aws-step-functions-automate-todoist-james-montgomery/&#34;&gt;label ordering challenge&lt;/a&gt; in my productivity application Todoist. I&amp;rsquo;ve summarised it &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/todoist-ordering/&#34;&gt;in this project page&lt;/a&gt; along with the outcome of this addition.&lt;/p&gt;&#xA;&lt;p&gt;I recently revisited to see if the REST API was updated to allow reordering of items. It had not. The relevant property was read-only, and therefore, the functionality was still exclusive to the &lt;a href=&#34;https://developer.todoist.com/sync/v8/#reorder-items&#34;&gt;Sync API&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;I took this as an opportunity to learn the Sync API for which there was an &lt;a href=&#34;https://github.com/doist/todoist-python&#34;&gt;official Python library&lt;/a&gt;. Additionally, the need for an external library would allow me to experiment with AWS deployment packages and layers for Lambda.&lt;/p&gt;</description>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2019/06/order-order/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;A year ago, I took to AWS to solve a &lt;a href=&#34;https://www.linkedin.com/pulse/using-aws-step-functions-automate-todoist-james-montgomery/&#34;&gt;label ordering challenge&lt;/a&gt; in my productivity application Todoist. I&amp;rsquo;ve summarised it &lt;a href=&#34;https://gh-jamesmontgomery.github.io/pages-blog/projects/todoist-ordering/&#34;&gt;in this project page&lt;/a&gt; along with the outcome of this addition.&lt;/p&gt;&#xA;&lt;p&gt;I recently revisited to see if the REST API was updated to allow reordering of items. It had not. The relevant property was read-only, and therefore, the functionality was still exclusive to the &lt;a href=&#34;https://developer.todoist.com/sync/v8/#reorder-items&#34;&gt;Sync API&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;I took this as an opportunity to learn the Sync API for which there was an &lt;a href=&#34;https://github.com/doist/todoist-python&#34;&gt;official Python library&lt;/a&gt;. Additionally, the need for an external library would allow me to experiment with AWS deployment packages and layers for Lambda.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

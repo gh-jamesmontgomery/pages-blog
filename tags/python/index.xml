@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on James Montgomery</title>
-    <link>https://ja.mesmontgomery.co.uk/tags/python/</link>
+    <link>https://gh-jamesmontgomery.github.io/pages-blog/tags/python/</link>
     <description>Recent content in Python on James Montgomery</description>
     <generator>Hugo</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 31 Mar 2020 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ja.mesmontgomery.co.uk/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://gh-jamesmontgomery.github.io/pages-blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Serverless text-to-speech player for jokes and quotes</title>
-      <link>https://ja.mesmontgomery.co.uk/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/</link>
       <pubDate>Tue, 31 Mar 2020 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/</guid>
-      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;I decided to dust off my text-to-speech list, implementing a serverless solution delivering random jokes and quotes. You may visit it at this address:&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://tts-ja.mesmontgomery.co.uk/&#34;&gt;https://tts-ja.mesmontgomery.co.uk/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;You can get a preview of the joke quality here:&lt;/p&gt;&#xA;&lt;!-- markdownlint-disable MD033 --&gt;&#xA;&lt;p&gt;&lt;audio controls&gt;&lt;source src=&#34;https://ja.mesmontgomery.co.uk/audio/AWS-TTS-20-four-engineers.mp3&#34; type=&#34;audio/mpeg&#34;&gt;Your browser does not support the audio element.&lt;/audio&gt;&lt;/p&gt;&#xA;&lt;!-- markdownlint-enable MD033 --&gt;&#xA;&lt;p&gt;Note: I can&amp;rsquo;t affect the humour quality 🤣.&lt;/p&gt;&#xA;&lt;h2 id=&#34;solution-overview&#34;&gt;Solution overview&lt;/h2&gt;&#xA;&lt;p&gt;Upon visiting the page, an event triggers calls to the API routes for their relative jokes and quotes. Contained in the API response is the source audio for the HTML5 audio controls.&lt;/p&gt;</description>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2020/03/a-serverless-text-to-speech-player-for-jokes-and-quotes/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;I decided to dust off my text-to-speech list, implementing a serverless solution delivering random jokes and quotes. You may visit it at this address:&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://tts-ja.mesmontgomery.co.uk/&#34;&gt;https://tts-ja.mesmontgomery.co.uk/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;You can get a preview of the joke quality here:&lt;/p&gt;&#xA;&lt;!-- markdownlint-disable MD033 --&gt;&#xA;&lt;p&gt;&lt;audio controls&gt;&lt;source src=&#34;https://gh-jamesmontgomery.github.io/pages-blog/audio/AWS-TTS-20-four-engineers.mp3&#34; type=&#34;audio/mpeg&#34;&gt;Your browser does not support the audio element.&lt;/audio&gt;&lt;/p&gt;&#xA;&lt;!-- markdownlint-enable MD033 --&gt;&#xA;&lt;p&gt;Note: I can&amp;rsquo;t affect the humour quality 🤣.&lt;/p&gt;&#xA;&lt;h2 id=&#34;solution-overview&#34;&gt;Solution overview&lt;/h2&gt;&#xA;&lt;p&gt;Upon visiting the page, an event triggers calls to the API routes for their relative jokes and quotes. Contained in the API response is the source audio for the HTML5 audio controls.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Backup of Cloudflare DNS to AWS DynamoDB</title>
-      <link>https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</link>
       <pubDate>Fri, 21 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</guid>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2020/02/backup-of-cloudflare-dns-to-aws-dynamodb/</guid>
       <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;After a short break, I decided to take an item off the project list. DNS is a rich source of inspiration for me - and so I elected for a quick win in the form of serverless DNS records backup. The goal of which is to backup my DNS zone contents, via functions as a service (FaaS) and storage as a service (object or database).&lt;/p&gt;&#xA;&lt;p&gt;You can find all the associated code for this on my &lt;a href=&#34;https://github.com/gh-jamesmontgomery/cloudflare-dns&#34;&gt;GitHub page&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Introducing Elite Dangerous Timeline</title>
-      <link>https://ja.mesmontgomery.co.uk/2019/07/introducing-elite-dangerous-timeline/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2019/07/introducing-elite-dangerous-timeline/</link>
       <pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2019/07/introducing-elite-dangerous-timeline/</guid>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2019/07/introducing-elite-dangerous-timeline/</guid>
       <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;I created a timeline visual from Elite Dangerous in-game events. Why? On the one hand, to further my Python learning and explore AWS DynamoDB. On the other hand, because I ultimately would like to provide some context to me in the game which is not present natively. By focusing on visualising a subset of the available events, I gain a foothold in parsing the game data into a database and putting an API in front of it.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Order, order!</title>
-      <link>https://ja.mesmontgomery.co.uk/2019/06/order-order/</link>
+      <link>https://gh-jamesmontgomery.github.io/pages-blog/2019/06/order-order/</link>
       <pubDate>Thu, 06 Jun 2019 00:00:00 +0000</pubDate>
-      <guid>https://ja.mesmontgomery.co.uk/2019/06/order-order/</guid>
-      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;A year ago, I took to AWS to solve a &lt;a href=&#34;https://www.linkedin.com/pulse/using-aws-step-functions-automate-todoist-james-montgomery/&#34;&gt;label ordering challenge&lt;/a&gt; in my productivity application Todoist. I&amp;rsquo;ve summarised it &lt;a href=&#34;https://ja.mesmontgomery.co.uk/projects/todoist-ordering/&#34;&gt;in this project page&lt;/a&gt; along with the outcome of this addition.&lt;/p&gt;&#xA;&lt;p&gt;I recently revisited to see if the REST API was updated to allow reordering of items. It had not. The relevant property was read-only, and therefore, the functionality was still exclusive to the &lt;a href=&#34;https://developer.todoist.com/sync/v8/#reorder-items&#34;&gt;Sync API&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;I took this as an opportunity to learn the Sync API for which there was an &lt;a href=&#34;https://github.com/doist/todoist-python&#34;&gt;official Python library&lt;/a&gt;. Additionally, the need for an external library would allow me to experiment with AWS deployment packages and layers for Lambda.&lt;/p&gt;</description>
+      <guid>https://gh-jamesmontgomery.github.io/pages-blog/2019/06/order-order/</guid>
+      <description>&lt;h2 id=&#34;tl-dr&#34;&gt;TL; DR&lt;/h2&gt;&#xA;&lt;p&gt;A year ago, I took to AWS to solve a &lt;a href=&#34;https://www.linkedin.com/pulse/using-aws-step-functions-automate-todoist-james-montgomery/&#34;&gt;label ordering challenge&lt;/a&gt; in my productivity application Todoist. I&amp;rsquo;ve summarised it &lt;a href=&#34;https://gh-jamesmontgomery.github.io/pages-blog/projects/todoist-ordering/&#34;&gt;in this project page&lt;/a&gt; along with the outcome of this addition.&lt;/p&gt;&#xA;&lt;p&gt;I recently revisited to see if the REST API was updated to allow reordering of items. It had not. The relevant property was read-only, and therefore, the functionality was still exclusive to the &lt;a href=&#34;https://developer.todoist.com/sync/v8/#reorder-items&#34;&gt;Sync API&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;I took this as an opportunity to learn the Sync API for which there was an &lt;a href=&#34;https://github.com/doist/todoist-python&#34;&gt;official Python library&lt;/a&gt;. Additionally, the need for an external library would allow me to experiment with AWS deployment packages and layers for Lambda.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
